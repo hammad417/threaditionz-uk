@@ -1,0 +1,106 @@
+[
+  {
+    "handle": "the-solid-antique-gold-silk-pocket-square",
+    "shot": "drape",
+    "ratio": "1:1",
+    "file": "out/the-solid-antique-gold-silk-pocket-square/the-solid-antique-gold-silk-pocket-square_drape_1x1.png",
+    "status": "qa_pending",
+    "source_image": "/Users/admin/Documents/Claude/Projects/threaditionz-uk/storefront/photo-upgrade/refs/the-solid-antique-gold-silk-pocket-square.jpg"
+  },
+  {
+    "handle": "imperial-ajrak-silk-cravat",
+    "shot": "drape",
+    "ratio": "1:1",
+    "file": "out/imperial-ajrak-silk-cravat/imperial-ajrak-silk-cravat_drape_1x1.png",
+    "status": "qa_pending",
+    "source_image": "/Users/admin/Documents/Claude/Projects/threaditionz-uk/storefront/photo-upgrade/refs/imperial-ajrak-silk-cravat.jpg"
+  },
+  {
+    "handle": "imperial-ajrak-silk-cravat",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/imperial-ajrak-silk-cravat/imperial-ajrak-silk-cravat_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 2
+  },
+  {
+    "handle": "the-solid-antique-gold-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-antique-gold-silk-pocket-square/the-solid-antique-gold-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "the-solid-raisin-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-raisin-silk-pocket-square/the-solid-raisin-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "the-solid-navy-blue-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-navy-blue-silk-pocket-square/the-solid-navy-blue-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 5
+  },
+  {
+    "handle": "the-solid-caribbean-green-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-caribbean-green-silk-pocket-square/the-solid-caribbean-green-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "the-solid-lemon-yellow-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-lemon-yellow-silk-pocket-square/the-solid-lemon-yellow-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "the-solid-hot-pink-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-hot-pink-silk-pocket-square/the-solid-hot-pink-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "the-solid-taffy-pink-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-taffy-pink-silk-pocket-square/the-solid-taffy-pink-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "the-solid-vanilla-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-vanilla-silk-pocket-square/the-solid-vanilla-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "the-solid-sage-green-silk-pocket-square",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/the-solid-sage-green-silk-pocket-square/the-solid-sage-green-silk-pocket-square_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 4
+  },
+  {
+    "handle": "diwan-e-ghalib-silk-scarf-pocket-square-set",
+    "shot": "onbody",
+    "ratio": "3:4",
+    "file": "out/diwan-e-ghalib-silk-scarf-pocket-square-set/diwan-e-ghalib-silk-scarf-pocket-square-set_onbody_3x4.png",
+    "status": "qa_pending",
+    "ref_count": 3
+  }
+]
