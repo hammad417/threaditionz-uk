@@ -47,6 +47,10 @@ export const metadata = {
   twitter: { card: "summary_large_image" },
 };
 
+export const viewport = {
+  themeColor: "#151d32",
+};
+
 // Sitewide structured data: brand identity + site search box (sitelinks searchbox).
 const organizationJsonLd = {
   "@context": "https://schema.org",
