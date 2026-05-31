@@ -1,6 +1,5 @@
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
-import { WelcomeToast } from "components/welcome-toast";
 import { getCart } from "lib/shopify";
 import { Lato, Playfair_Display } from "next/font/google";
 import { ReactNode } from "react";
@@ -47,17 +46,13 @@ export default async function RootLayout({
   const cart = getCart();
 
   return (
-    <html
-      lang="en-GB"
-      className={`${playfair.variable} ${lato.variable}`}
-    >
+    <html lang="en-GB" className={`${playfair.variable} ${lato.variable}`}>
       <body className="bg-warm-white text-foreground antialiased selection:bg-gold/30">
         <CartProvider cartPromise={cart}>
           <Navbar />
           <main>
             {children}
             <Toaster closeButton />
-            <WelcomeToast />
           </main>
         </CartProvider>
       </body>
