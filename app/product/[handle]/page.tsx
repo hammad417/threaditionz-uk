@@ -2,6 +2,7 @@ import Footer from "components/layout/footer";
 import { Gallery } from "components/product/gallery";
 import { ProductDescription } from "components/product/product-description";
 import { ProductDetails } from "components/product/product-details";
+import StickyBuyBar from "components/product/sticky-buy-bar";
 import { GridTileImage } from "components/grid/tile";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
@@ -189,6 +190,8 @@ export default async function ProductPage(props: {
 
         <RelatedProducts id={product.id} />
       </div>
+      <div className="h-24 md:hidden" aria-hidden />
+      <StickyBuyBar product={product} />
       <Footer />
     </>
   );

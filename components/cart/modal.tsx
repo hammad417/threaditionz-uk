@@ -91,6 +91,10 @@ export default function CartModal() {
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
+                  <FreeShippingBar
+                    amount={cart.cost.totalAmount.amount}
+                    currencyCode={cart.cost.totalAmount.currencyCode}
+                  />
                   <ul className="grow overflow-auto py-4">
                     {cart.lines
                       .sort((a, b) =>
@@ -225,6 +229,51 @@ export default function CartModal() {
         </Dialog>
       </Transition>
     </>
+  );
+}
+
+// Free-shipping progress bar. Set NEXT_PUBLIC_FREE_SHIPPING_THRESHOLD (store currency)
+// to enable — and make sure it matches a real free-shipping rule in Shopify.
+function FreeShippingBar({
+  amount,
+  currencyCode,
+}: {
+  amount: string;
+  currencyCode: string;
+}) {
+  const threshold = Number(
+    process.env.NEXT_PUBLIC_FREE_SHIPPING_THRESHOLD || 0,
+  );
+  if (!threshold) return null;
+  const subtotal = Number(amount);
+  const remaining = Math.max(0, threshold - subtotal);
+  const pct = Math.min(100, Math.round((subtotal / threshold) * 100));
+
+  return (
+    <div className="mb-2 rounded-md border border-gold/30 bg-gold/5 p-3 text-center text-xs text-charcoal">
+      {remaining > 0 ? (
+        <p>
+          Spend{" "}
+          <Price
+            className="inline font-semibold text-charcoal"
+            amount={String(remaining)}
+            currencyCode={currencyCode}
+          />{" "}
+          more for{" "}
+          <span className="font-semibold text-gold">free shipping</span>
+        </p>
+      ) : (
+        <p className="font-semibold text-gold">
+          ✓ You&rsquo;ve unlocked free shipping
+        </p>
+      )}
+      <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-gold/15">
+        <div
+          className="h-full rounded-full bg-gold transition-all"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </div>
   );
 }
 

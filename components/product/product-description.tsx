@@ -1,4 +1,5 @@
 import { AddToCart } from "components/cart/add-to-cart";
+import { BuyNowButton } from "components/cart/buy-now";
 import Price from "components/price";
 import Prose from "components/prose";
 import { Product } from "lib/shopify/types";
@@ -26,7 +27,17 @@ export function ProductDescription({ product }: { product: Product }) {
           html={product.descriptionHtml}
         />
       ) : null}
-      <AddToCart product={product} />
+      <div className="flex flex-col gap-3">
+        <AddToCart product={product} />
+        <BuyNowButton product={product} />
+      </div>
+
+      <ul className="mt-5 space-y-1.5 text-xs text-muted-foreground">
+        <li>Hand-finished 100% silk</li>
+        <li>Ships in 1–2 business days</li>
+        <li>Free returns within 14 days</li>
+        <li>Secure checkout</li>
+      </ul>
     </>
   );
 }

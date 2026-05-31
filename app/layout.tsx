@@ -1,3 +1,4 @@
+import Analytics from "components/analytics";
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
 import { getCart } from "lib/shopify";
@@ -91,6 +92,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
+        <Analytics />
         <CartProvider cartPromise={cart}>
           <Navbar />
           <main>
