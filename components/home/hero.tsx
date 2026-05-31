@@ -1,19 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
+import HeroMedia from "./hero-media";
 
 export default function Hero() {
   return (
     <section className="relative isolate flex min-h-[70vh] items-center justify-center overflow-hidden bg-midnight">
-      {/* Hero photograph (British menswear editorial) */}
-      <Image
-        src="/hero/home-hero.jpg"
-        alt=""
-        aria-hidden
-        fill
-        priority
-        sizes="100vw"
-        className="-z-20 object-cover object-center"
-      />
+      {/* Hero background: two alternating cinematic clips (poster fallback on mobile / reduced-motion) */}
+      <HeroMedia />
       {/* Midnight scrim — keeps headline legible while the photo reads through */}
       <div
         aria-hidden
