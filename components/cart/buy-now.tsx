@@ -26,7 +26,11 @@ export function BuyNowButton({
   if (!availableForSale) return null;
 
   return (
-    <form action={async () => buyNow(selectedVariantId)}>
+    <form
+      action={async () => {
+        await buyNow(selectedVariantId);
+      }}
+    >
       <button
         disabled={!selectedVariantId}
         aria-label="Buy it now"

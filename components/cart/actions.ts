@@ -5,9 +5,11 @@ import {
   addToCart,
   createCart,
   getCart,
+  getProductRecommendations,
   removeFromCart,
   updateCart,
 } from "lib/shopify";
+import type { Product } from "lib/shopify/types";
 import { updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -114,6 +116,19 @@ export async function buyNow(selectedVariantId: string | undefined) {
   }
   const cart = await getCart();
   if (cart?.checkoutUrl) redirect(cart.checkoutUrl);
+}
+
+// Cross-sell suggestions for the cart ("Complete the look"), seeded from a cart item.
+export async function getCartRecommendations(
+  productId: string,
+): Promise<Product[]> {
+  if (!productId) return [];
+  try {
+    const recs = await getProductRecommendations(productId);
+    return recs.slice(0, 6);
+  } catch {
+    return [];
+  }
 }
 
 export async function createCartAndSetCookie() {
