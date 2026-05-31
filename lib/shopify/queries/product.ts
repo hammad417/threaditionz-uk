@@ -44,6 +44,28 @@ export const getProductsQuery = /* GraphQL */ `
   ${productFragment}
 `;
 
+// Paginated — fetches the entire catalogue (for the sitemap / IndexNow), not just first 100.
+export const getAllProductsQuery = /* GraphQL */ `
+  query getAllProducts(
+    $sortKey: ProductSortKeys
+    $reverse: Boolean
+    $cursor: String
+  ) {
+    products(sortKey: $sortKey, reverse: $reverse, first: 250, after: $cursor) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          ...product
+        }
+      }
+    }
+  }
+  ${productFragment}
+`;
+
 export const getProductRecommendationsQuery = /* GraphQL */ `
   query getProductRecommendations($productId: ID!) {
     productRecommendations(productId: $productId) {
