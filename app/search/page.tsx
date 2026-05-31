@@ -6,6 +6,9 @@ import { getProducts } from "lib/shopify";
 export const metadata = {
   title: "Search",
   description: "Search for products in the store.",
+  // Search/filter results are thin + duplicative — keep them out of the index.
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/search" },
 };
 
 export default async function SearchPage(props: {

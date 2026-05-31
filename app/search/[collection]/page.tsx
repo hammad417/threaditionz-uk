@@ -14,12 +14,17 @@ export async function generateMetadata(props: {
 
   if (!collection) return notFound();
 
+  // Shopify SEO titles already include the brand, so use them verbatim (absolute)
+  // to avoid the "… | Threaditionz UK | Threaditionz" double-branding from the template.
+  const seoTitle = collection.seo?.title;
+
   return {
-    title: collection.seo?.title || collection.title,
+    title: seoTitle ? { absolute: seoTitle } : collection.title,
     description:
       collection.seo?.description ||
       collection.description ||
-      `${collection.title} products`,
+      `${collection.title} — 100% silk men's accessories, hand-finished in England.`,
+    alternates: { canonical: `/search/${params.collection}` },
   };
 }
 

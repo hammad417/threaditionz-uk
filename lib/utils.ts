@@ -1,8 +1,13 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
 
-export const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
+// Canonical site origin used for metadata, sitemap, robots, OG and JSON-LD.
+// Prefer an explicit NEXT_PUBLIC_SITE_URL (e.g. https://threaditionz.co.uk) so these
+// never point at the *.vercel.app deployment URL.
+export const baseUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
 export const createUrl = (
   pathname: string,

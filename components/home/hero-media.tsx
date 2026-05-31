@@ -57,7 +57,7 @@ export default function HeroMedia() {
           }}
           muted
           playsInline
-          preload={i === 0 ? "auto" : "metadata"}
+          preload="metadata"
           autoPlay={i === 0}
           poster={c.poster}
           onEnded={() => handleEnded(i)}

@@ -18,10 +18,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const collectionsPromise = getCollections().then((collections) =>
-    collections.map((collection) => ({
-      url: `${baseUrl}${collection.path}`,
-      lastModified: collection.updatedAt,
-    })),
+    collections
+      // Exclude the catch-all "/search" listing — it's noindex (thin/duplicative).
+      .filter((collection) => collection.path !== "/search")
+      .map((collection) => ({
+        url: `${baseUrl}${collection.path}`,
+        lastModified: collection.updatedAt,
+      })),
   );
 
   const productsPromise = getProducts({}).then((products) =>

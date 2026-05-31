@@ -27,6 +27,7 @@ export async function generateMetadata(props: {
   return {
     title: product.seo.title || product.title,
     description: product.seo.description || product.description,
+    alternates: { canonical: `/product/${product.handle}` },
     robots: {
       index: indexable,
       follow: indexable,
@@ -64,6 +65,9 @@ export default async function ProductPage(props: {
     name: product.title,
     description: product.description,
     image: product.featuredImage.url,
+    sku: product.handle,
+    brand: { "@type": "Brand", name: "Threaditionz" },
+    url: `${baseUrl}/product/${product.handle}`,
     offers: {
       "@type": "AggregateOffer",
       availability: product.availableForSale

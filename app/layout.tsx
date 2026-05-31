@@ -31,9 +31,38 @@ export const metadata = {
     default: SITE_NAME!,
     template: `%s | ${SITE_NAME}`,
   },
+  description:
+    "Hand-finished 100% silk pocket squares, cravats and scarves, crafted in England for the modern gentleman.",
+  alternates: { canonical: "/" },
   robots: {
     follow: true,
     index: true,
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME!,
+    locale: "en_GB",
+    url: "/",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+// Sitewide structured data: brand identity + site search box (sitelinks searchbox).
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: baseUrl,
+};
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: baseUrl,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${baseUrl}/search?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
   },
 };
 
@@ -48,6 +77,16 @@ export default async function RootLayout({
   return (
     <html lang="en-GB" className={`${playfair.variable} ${lato.variable}`}>
       <body className="bg-warm-white text-foreground antialiased selection:bg-gold/30">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <CartProvider cartPromise={cart}>
           <Navbar />
           <main>

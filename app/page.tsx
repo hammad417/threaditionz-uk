@@ -5,8 +5,13 @@ import Hero from "components/home/hero";
 import Footer from "components/layout/footer";
 
 export const metadata = {
+  title: {
+    absolute:
+      "Threaditionz — Hand-Finished Silk Pocket Squares, Cravats & Scarves",
+  },
   description:
     "Hand-finished 100% silk pocket squares, cravats and scarves, crafted in England for the modern gentleman.",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
   },
