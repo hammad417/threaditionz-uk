@@ -45,5 +45,6 @@ next-env.d.ts
 # photo-upgrade: ignore generated images, downloaded refs, logs and debug dumps;
 # keep the scripts, audit data, briefs, target list, and manifest.
 photo-upgrade/refs/
+photo-upgrade/hero/
 photo-upgrade/out/*
 !photo-upgrade/out/manifest.json

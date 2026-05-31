@@ -80,21 +80,57 @@ function productContext(p: ProductRecord): string {
   );
 }
 
+// Diverse UK-based male models — representative of Britain's ethnic mix. One is
+// picked per product (deterministically by handle, so re-runs are stable).
+const UK_MODELS = [
+  "British white male model, fair complexion, classic English features",
+  "Black British male model, dark skin, short cropped hair",
+  "British South Asian male model, brown skin, neat dark hair",
+  "British East Asian male model, light-medium complexion, short dark hair",
+  "mixed-race British male model, medium-brown complexion",
+  "British Middle-Eastern male model, olive complexion, short neat beard",
+];
+
+// British weather / settings — soft overcast UK conditions instead of a warm studio.
+const UK_SETTINGS = [
+  "soft overcast British daylight, cool diffused grey sky, weathered London stone wall behind",
+  "misty British morning, muted cool light, Georgian townhouse facade backdrop",
+  "drizzly London street, wet-pavement sheen, soft diffused overcast light",
+  "autumnal English park, soft grey daylight, bare-branch bokeh behind",
+  "moody overcast English courtyard, cool soft daylight, pale stone backdrop",
+];
+
+// Stable per-product pick (avoids Math.random so resumed runs stay consistent).
+function pick<T>(handle: string, arr: T[], salt: number): T {
+  let h = salt;
+  for (const c of handle) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return arr[h % arr.length]!;
+}
+
 function intentPrompt(p: ProductRecord, type: string): string {
   const cat = category(p);
-  const base =
-    "warm-stone backdrop, soft 5200K key light, premium menswear catalogue editorial";
+  const model = pick(p.handle, UK_MODELS, 1);
+  const setting = pick(p.handle, UK_SETTINGS, 99);
+  const base = `${setting}; soft overcast British daylight ~6200K; premium menswear catalogue editorial`;
   if (type === "onbody") {
     if (cat === "pocket square")
-      return `On-body editorial: a folded silk pocket square in the breast pocket of a midnight-navy suit jacket, cropped torso, ${base}`;
+      return `On-body editorial: ${model}, a folded silk pocket square in the breast pocket of his midnight-navy suit jacket, cropped torso. ${base}`;
     if (cat === "scarf")
-      return `On-body editorial: house model wearing the silk scarf draped around the neck over a midnight-navy overcoat, cropped torso, ${base}`;
+      return `On-body editorial: ${model}, wearing the silk scarf draped around the neck over a midnight-navy overcoat, cropped torso. ${base}`;
     if (cat === "gift set")
-      return `On-body editorial: house model styled with the matching silk scarf around the neck and the pocket square in the breast pocket of a midnight-navy suit, cropped torso, ${base}`;
-    return `On-body editorial: house model in a midnight-navy suit wearing the ${cat} in a classic ascot knot, cropped torso, ${base}`;
+      return `On-body editorial: ${model}, styled with the matching silk scarf around the neck and the pocket square in the breast pocket of a midnight-navy suit, cropped torso. ${base}`;
+    return `On-body editorial: ${model}, in a midnight-navy suit wearing the ${cat} in a classic ascot knot, cropped torso. ${base}`;
   }
-  // drape
-  return `Still-life: the silk ${cat} draped over a stone edge to show fluid hand-feel, sheen and movement, ${base}`;
+  // drape still-life (no model)
+  const drapeBase =
+    "soft overcast British daylight, cool diffused light, weathered stone surface, premium menswear catalogue product detail, true colour, sharp focus on the silk";
+  if (cat === "gift set")
+    return `Still-life flat-lay: the matching silk scarf and pocket square arranged together, the scarf softly draped beside the folded pocket square, both prints clearly visible, ${drapeBase}`;
+  if (cat === "cravat")
+    return `Still-life: the silk cravat draped in an elegant curve over a weathered stone edge, showing the print, silk sheen and hand-rolled edge, ${drapeBase}`;
+  if (cat === "scarf")
+    return `Still-life: the long silk scarf draped and gently flowing over a weathered stone edge with the fringe visible, showing the full print and silk movement, ${drapeBase}`;
+  return `Still-life: the silk ${cat} draped over a weathered stone edge to show fluid hand-feel, sheen and movement, ${drapeBase}`;
 }
 
 function loadProducts(): Record<string, ProductRecord> {

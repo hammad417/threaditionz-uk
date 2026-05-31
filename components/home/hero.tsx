@@ -1,24 +1,34 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className="relative isolate flex min-h-[70vh] items-center justify-center overflow-hidden bg-midnight">
-      {/* Midnight gradient overlay */}
+      {/* Hero photograph (British menswear editorial) */}
+      <Image
+        src="/hero/home-hero.jpg"
+        alt=""
+        aria-hidden
+        fill
+        priority
+        sizes="100vw"
+        className="-z-20 object-cover object-center"
+      />
+      {/* Midnight scrim — keeps headline legible while the photo reads through */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-br from-midnight via-midnight to-charcoal"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-midnight/90 via-midnight/65 to-midnight/40"
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 opacity-40 [background:radial-gradient(circle_at_70%_30%,hsl(40_60%_50%/0.25),transparent_55%)]"
+        className="absolute inset-0 -z-10 opacity-30 [background:radial-gradient(circle_at_70%_30%,hsl(40_60%_50%/0.25),transparent_55%)]"
       />
 
       <div className="mx-auto max-w-3xl px-6 py-24 text-center">
         <span className="eyebrow">Hand-Finished in England</span>
         <div className="gold-divider gold-divider-center mt-5" />
         <h1 className="mt-6 font-heading text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
-          The Art of the{" "}
-          <span className="italic text-gold">Pocket Square</span>
+          The Art of the <span className="italic text-gold">Pocket Square</span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-cream/70">
           Pure silk accessories for the modern gentleman — pocket squares,
