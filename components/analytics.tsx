@@ -1,13 +1,33 @@
-import Script from "next/script";
+"use client";
 
-// Lightweight, dependency-free analytics. Each tag loads only when its ID is set
-// (NEXT_PUBLIC_GA_ID / NEXT_PUBLIC_FB_PIXEL_ID / NEXT_PUBLIC_CLARITY_ID).
-// NOTE: for UK/EU compliance, gate these behind a cookie-consent banner.
+import Script from "next/script";
+import { useEffect, useState } from "react";
+
+// Analytics tags load ONLY after (a) the user grants cookie consent and (b) the
+// matching NEXT_PUBLIC_* id is set. Consent is read from localStorage and kept in
+// sync via the "cookie-consent-change" window event dispatched by the banner.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 export default function Analytics() {
+  const [granted, setGranted] = useState(false);
+
+  useEffect(() => {
+    const read = () => {
+      try {
+        setGranted(localStorage.getItem("cookie-consent") === "granted");
+      } catch {
+        setGranted(false);
+      }
+    };
+    read();
+    window.addEventListener("cookie-consent-change", read);
+    return () => window.removeEventListener("cookie-consent-change", read);
+  }, []);
+
+  if (!granted) return null;
+
   return (
     <>
       {GA_ID ? (

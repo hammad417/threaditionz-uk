@@ -1,4 +1,5 @@
 import Analytics from "components/analytics";
+import CookieConsent from "components/cookie-consent";
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
 import { getCart } from "lib/shopify";
@@ -93,6 +94,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Analytics />
+        <CookieConsent />
         <CartProvider cartPromise={cart}>
           <Navbar />
           <main>
