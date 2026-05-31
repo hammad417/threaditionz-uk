@@ -129,6 +129,23 @@ export default async function ProductPage(props: {
         />
       ) : null}
 
+      {/* Product Open Graph (Pinterest Rich Pins / Facebook & shopping previews) */}
+      <meta property="og:type" content="product" />
+      <meta
+        property="product:price:amount"
+        content={product.priceRange.minVariantPrice.amount}
+      />
+      <meta
+        property="product:price:currency"
+        content={product.priceRange.minVariantPrice.currencyCode}
+      />
+      <meta
+        property="product:availability"
+        content={product.availableForSale ? "in stock" : "out of stock"}
+      />
+      <meta property="product:condition" content="new" />
+      <meta property="product:brand" content="Threaditionz" />
+
       <div className="mx-auto max-w-(--breakpoint-2xl) px-4 py-10">
         {/* Breadcrumb trail */}
         <nav

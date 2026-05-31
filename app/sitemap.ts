@@ -5,6 +5,7 @@ import { MetadataRoute } from "next";
 type Route = {
   url: string;
   lastModified: string;
+  images?: string[];
 };
 
 export const dynamic = "force-dynamic";
@@ -31,6 +32,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     products.map((product) => ({
       url: `${baseUrl}/product/${product.handle}`,
       lastModified: product.updatedAt,
+      // Surface the product image for Google Images / Discover via <image:image>.
+      ...(product.featuredImage?.url
+        ? { images: [product.featuredImage.url] }
+        : {}),
     })),
   );
 
