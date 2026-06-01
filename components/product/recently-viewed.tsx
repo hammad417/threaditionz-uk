@@ -53,25 +53,31 @@ export default function RecentlyViewed({ current }: { current?: ViewedItem }) {
         {items.map((p) => (
           <li
             key={p.handle}
-            className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
+            className="w-2/3 flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
           >
-            <Link
-              href={`/product/${p.handle}`}
-              className="group relative block h-full w-full overflow-hidden border border-gold/10"
-            >
-              <Image
-                src={p.image}
-                alt={p.title}
-                fill
-                sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-midnight/80 to-transparent p-3">
-                <p className="truncate text-xs text-cream">{p.title}</p>
+            <Link href={`/product/${p.handle}`} className="group block">
+              <div className="relative aspect-[4/5] overflow-hidden border border-gold/15 bg-cream">
+                <Image
+                  src={p.image}
+                  alt={p.title}
+                  fill
+                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 border border-gold/0 transition-colors duration-500 group-hover:border-gold/40"
+                />
+              </div>
+              <div className="mt-3 flex items-baseline justify-between gap-3 px-0.5">
+                <h3 className="line-clamp-1 font-heading text-sm text-foreground transition-colors group-hover:text-gold">
+                  {p.title}
+                </h3>
                 <Price
-                  className="text-xs text-gold"
+                  className="flex-none font-heading text-sm text-gold"
                   amount={p.amount}
                   currencyCode={p.currencyCode}
+                  currencyCodeClassName="hidden"
                 />
               </div>
             </Link>
