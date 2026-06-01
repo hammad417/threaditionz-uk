@@ -1,6 +1,6 @@
 import { Carousel } from "components/carousel";
-import { ThreeItemGrid } from "components/grid/three-items";
 import Editorial from "components/home/editorial";
+import { FeaturedCollections } from "components/home/featured-collections";
 import Hero from "components/home/hero";
 import OccasionGifting from "components/home/occasion-gifting";
 import Footer from "components/layout/footer";
@@ -23,8 +23,7 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Headings render only when their hidden Shopify collection has items. */}
-      <ThreeItemGrid eyebrow="Curated" title="Featured Collection" />
+      <FeaturedCollections eyebrow="Curated" title="Shop the Collections" />
 
       <OccasionGifting />
 
