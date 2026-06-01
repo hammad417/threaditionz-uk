@@ -3,18 +3,24 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-// Two cinematic 10s hero clips that crossfade into each other on loop.
-// Different model + products per clip (cravat + pocket square / scarf + pocket square).
+// Three cinematic hero clips that crossfade into each other on loop.
+// The modern gentleman, styled in our gold silk pocket squares, across three scenes:
+// a London street walk, closing a deal in the office, and a beachside wedding toast.
 const CLIPS = [
   {
-    webm: "/hero/hero-cravat.webm",
-    mp4: "/hero/hero-cravat.mp4",
-    poster: "/hero/poster-cravat.jpg",
+    webm: "/hero/hero-street.webm",
+    mp4: "/hero/hero-street.mp4",
+    poster: "/hero/poster-street.jpg",
   },
   {
-    webm: "/hero/hero-scarf.webm",
-    mp4: "/hero/hero-scarf.mp4",
-    poster: "/hero/poster-scarf.jpg",
+    webm: "/hero/hero-office.webm",
+    mp4: "/hero/hero-office.mp4",
+    poster: "/hero/poster-office.jpg",
+  },
+  {
+    webm: "/hero/hero-wedding.webm",
+    mp4: "/hero/hero-wedding.mp4",
+    poster: "/hero/poster-wedding.jpg",
   },
 ];
 
