@@ -32,39 +32,46 @@ function FeaturedTile({
   return (
     <Link
       href={collectionHref(handle)}
-      className="group/tile flex w-72 flex-none flex-col gap-3"
+      className="group/tile relative block aspect-[4/5] w-72 flex-none overflow-hidden rounded-md bg-charcoal"
+      data-mega-link
     >
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md bg-charcoal">
-        {src ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={src}
-            alt={heading}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover/tile:scale-105"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-charcoal to-midnight" />
-        )}
+      {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={src}
+          alt={heading}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover/tile:scale-105"
+        />
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-charcoal to-midnight" />
+      )}
+      {/* Legibility gradient + gold frame on hover */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 rounded-md border border-gold/0 transition-colors duration-500 group-hover/tile:border-gold/40"
+      />
+      <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1 p-5">
+        <span className="eyebrow text-gold">{eyebrow}</span>
+        <span className="font-heading text-xl text-cream">{heading}</span>
+        <span className="tracked-label mt-1 inline-flex items-center gap-1 text-xs text-gold">
+          Shop now
+          <span className="transition-transform duration-300 group-hover/tile:translate-x-1">
+            →
+          </span>
+        </span>
       </div>
-      <span className="eyebrow">{eyebrow}</span>
-      <span className="font-heading text-xl text-cream">{heading}</span>
-      <span className="tracked-label text-xs text-gold transition-colors group-hover/tile:text-gold-light">
-        Shop now →
-      </span>
     </Link>
   );
 }
 
-function PanelBody({
-  group,
-  featuredImages,
-}: {
-  group: MegaGroup;
-  featuredImages: Record<string, string>;
-}) {
+function LinksRegion({ group }: { group: MegaGroup }) {
   if (group.layout === "swatches") {
     return (
-      <div className="grid grid-cols-2 gap-x-10 gap-y-3">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-3.5 sm:grid-cols-3">
         {group.links.map((link) => (
           <Link
             key={link.handle}
@@ -75,8 +82,8 @@ function PanelBody({
             <span
               aria-hidden
               className={clsx(
-                "h-4 w-4 flex-none rounded-full",
-                link.swatchBorder && "ring-1 ring-cream/40",
+                "h-4 w-4 flex-none rounded-full ring-1 transition-transform duration-300 group-hover/link:scale-110",
+                link.swatchBorder ? "ring-cream/40" : "ring-transparent",
               )}
               style={{ backgroundColor: link.swatch }}
             />
@@ -87,37 +94,39 @@ function PanelBody({
     );
   }
 
-  if (group.layout === "two-col") {
-    return (
-      <div className="grid grid-cols-2 gap-x-10 gap-y-3">
-        {group.links.map((link) => (
-          <Link
-            key={link.handle}
-            href={collectionHref(link.handle)}
-            className="text-sm text-cream/80 transition-colors hover:text-gold"
-            data-mega-link
-          >
-            {link.label}
-          </Link>
-        ))}
-      </div>
-    );
-  }
-
-  // "links" layout — single column + featured tile on the right
+  // "links" and "two-col" share a clean multi-column link list with a
+  // hover gold dash marker.
   return (
-    <div className="flex gap-12">
-      <div className="flex flex-1 flex-col gap-3">
-        {group.links.map((link) => (
-          <Link
-            key={link.handle}
-            href={collectionHref(link.handle)}
-            className="text-sm text-cream/80 transition-colors hover:text-gold"
-            data-mega-link
-          >
-            {link.label}
-          </Link>
-        ))}
+    <div className="grid grid-cols-2 gap-x-8 gap-y-3.5">
+      {group.links.map((link) => (
+        <Link
+          key={link.handle}
+          href={collectionHref(link.handle)}
+          className="group/link inline-flex items-center gap-2 text-sm text-cream/80 transition-colors hover:text-gold"
+          data-mega-link
+        >
+          <span
+            aria-hidden
+            className="h-px w-0 flex-none bg-gold transition-all duration-300 group-hover/link:w-3"
+          />
+          <span>{link.label}</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+function PanelBody({
+  group,
+  featuredImages,
+}: {
+  group: MegaGroup;
+  featuredImages: Record<string, string>;
+}) {
+  return (
+    <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16">
+      <div className="flex-1">
+        <LinksRegion group={group} />
       </div>
       <FeaturedTile group={group} featuredImages={featuredImages} />
     </div>
@@ -262,7 +271,16 @@ export default function MegaHeader({
                       isOpen ? "text-gold" : "text-cream/80 hover:text-cream",
                     )}
                   >
-                    {group.title.replace("Shop by ", "")}
+                    <span className="relative">
+                      {group.title.replace("Shop by ", "")}
+                      <span
+                        aria-hidden
+                        className={clsx(
+                          "absolute -bottom-1.5 left-0 h-px bg-gold transition-all duration-300",
+                          isOpen ? "w-full" : "w-0",
+                        )}
+                      />
+                    </span>
                   </button>
                 </li>
               );
@@ -292,14 +310,14 @@ export default function MegaHeader({
                 onMouseEnter={clearCloseTimer}
                 onKeyDown={(e) => onPanelKeyDown(e, i)}
                 className={clsx(
-                  "absolute left-0 right-0 top-full border-t border-gold/10 bg-midnight shadow-2xl transition-[opacity,visibility] duration-200",
+                  "absolute left-0 right-0 top-full border-t border-gold/10 bg-midnight shadow-2xl transition-[opacity,visibility,transform] duration-200 ease-out",
                   isOpen
-                    ? "visible opacity-100"
-                    : "invisible opacity-0",
+                    ? "visible translate-y-0 opacity-100"
+                    : "invisible -translate-y-2 opacity-0",
                 )}
               >
-                <div className="mx-auto max-w-(--breakpoint-2xl) px-8 py-10">
-                  <div className="mb-6">
+                <div className="mx-auto max-w-5xl px-8 py-12">
+                  <div className="mb-8">
                     <span className="eyebrow">{group.title}</span>
                     <div className="gold-divider mt-3" />
                   </div>

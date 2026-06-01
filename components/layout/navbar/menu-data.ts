@@ -97,6 +97,11 @@ export const MEGA_GROUPS: MegaGroup[] = [
         swatchBorder: true,
       },
     ],
+    featured: {
+      eyebrow: "Featured",
+      heading: "The Luxe Collection",
+      handle: "luxe-collection",
+    },
   },
   {
     title: "Shop by Pattern",
@@ -114,6 +119,11 @@ export const MEGA_GROUPS: MegaGroup[] = [
       { label: "Heritage & Ajrak", handle: "heritage-ajrak-silk-accessories" },
       { label: "Novelty", handle: "novelty-silk-accessories" },
     ],
+    featured: {
+      eyebrow: "Featured",
+      heading: "Heritage & Ajrak",
+      handle: "heritage-ajrak-silk-accessories",
+    },
   },
   {
     title: "Shop by Occasion",
