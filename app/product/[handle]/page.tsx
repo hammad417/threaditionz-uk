@@ -2,6 +2,7 @@ import Footer from "components/layout/footer";
 import { Gallery } from "components/product/gallery";
 import { ProductDescription } from "components/product/product-description";
 import { ProductDetails } from "components/product/product-details";
+import RecentlyViewed from "components/product/recently-viewed";
 import StickyBuyBar from "components/product/sticky-buy-bar";
 import { GridTileImage } from "components/grid/tile";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
@@ -189,6 +190,15 @@ export default async function ProductPage(props: {
         </div>
 
         <RelatedProducts id={product.id} />
+        <RecentlyViewed
+          current={{
+            handle: product.handle,
+            title: product.title,
+            image: product.featuredImage?.url,
+            amount: product.priceRange.maxVariantPrice.amount,
+            currencyCode: product.priceRange.maxVariantPrice.currencyCode,
+          }}
+        />
       </div>
       <div className="h-24 md:hidden" aria-hidden />
       <StickyBuyBar product={product} />

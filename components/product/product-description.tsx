@@ -2,7 +2,9 @@ import { AddToCart } from "components/cart/add-to-cart";
 import { BuyNowButton } from "components/cart/buy-now";
 import Price from "components/price";
 import Prose from "components/prose";
+import { WishlistButton } from "components/wishlist/wishlist-button";
 import { Product } from "lib/shopify/types";
+import { LowStock } from "./low-stock";
 import { VariantSelector } from "./variant-selector";
 
 export function ProductDescription({ product }: { product: Product }) {
@@ -21,6 +23,7 @@ export function ProductDescription({ product }: { product: Product }) {
         </div>
       </div>
       <VariantSelector options={product.options} variants={product.variants} />
+      <LowStock product={product} />
       {product.descriptionHtml ? (
         <Prose
           className="mb-6 text-sm leading-relaxed text-charcoal"
@@ -30,6 +33,18 @@ export function ProductDescription({ product }: { product: Product }) {
       <div className="flex flex-col gap-3">
         <AddToCart product={product} />
         <BuyNowButton product={product} />
+      </div>
+
+      <div className="mt-4">
+        <WishlistButton
+          item={{
+            handle: product.handle,
+            title: product.title,
+            image: product.featuredImage?.url,
+            amount: product.priceRange.maxVariantPrice.amount,
+            currencyCode: product.priceRange.maxVariantPrice.currencyCode,
+          }}
+        />
       </div>
 
       <ul className="mt-5 space-y-1.5 text-xs text-muted-foreground">

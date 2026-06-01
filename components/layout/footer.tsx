@@ -25,6 +25,7 @@ const helpLinks = [
 const companyLinks = [
   { label: "Our Story", href: "/our-story" },
   { label: "Sustainability", href: "/sustainability" },
+  { label: "Wishlist", href: "/wishlist" },
 ];
 
 function SocialIcon({
@@ -132,8 +133,10 @@ export default async function Footer() {
         <div className="mx-auto flex w-full max-w-(--breakpoint-2xl) flex-col items-center gap-2 px-6 py-6 text-xs text-cream/40 md:flex-row md:gap-0 lg:px-8">
           <p>
             &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith(".") ? "." : ""} All
-            rights reserved.
+            {copyrightName.length && !copyrightName.endsWith(".")
+              ? "."
+              : ""}{" "}
+            All rights reserved.
           </p>
           <div className="flex gap-4 md:ml-auto">
             <Link href="/privacy-policy" className="hover:text-gold">
