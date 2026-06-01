@@ -1,8 +1,8 @@
-import { Carousel } from "components/carousel";
 import Editorial from "components/home/editorial";
 import { FeaturedCollections } from "components/home/featured-collections";
 import Hero from "components/home/hero";
 import OccasionGifting from "components/home/occasion-gifting";
+import { TrendingEdit } from "components/home/trending-edit";
 import Footer from "components/layout/footer";
 
 export const metadata = {
@@ -27,7 +27,7 @@ export default function HomePage() {
 
       <OccasionGifting />
 
-      <Carousel eyebrow="Just Arrived" title="New This Season" />
+      <TrendingEdit eyebrow="Trending Now" title="The Gift Edit" />
 
       <Editorial />
 
