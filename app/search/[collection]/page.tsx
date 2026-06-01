@@ -2,8 +2,10 @@ import { getCollection, getCollectionProducts } from "lib/shopify";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import CollectionFaqs from "components/collection/collection-faqs";
 import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
+import { getCollectionFaqs } from "lib/collection-faqs";
 import { defaultSort, sorting } from "lib/constants";
 
 export async function generateMetadata(props: {
@@ -46,18 +48,27 @@ export default async function CategoryPage(props: {
     }),
   ]);
 
+  const faqs = collection
+    ? getCollectionFaqs(params.collection, collection.title)
+    : [];
+
   return (
     <section>
       {collection ? (
-        <div className="mb-8">
-          <span className="eyebrow">Collection</span>
-          <h1 className="mt-3 font-heading text-3xl text-foreground lg:text-4xl">
+        <div className="mb-12 text-center">
+          <span className="eyebrow">The Collection</span>
+          <h1 className="mt-3 font-heading text-3xl text-foreground lg:text-5xl">
             {collection.title}
           </h1>
-          <div className="gold-divider mt-4" />
+          <div className="gold-divider gold-divider-center mt-5" />
           {collection.description ? (
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {collection.description}
+            </p>
+          ) : null}
+          {products.length > 0 ? (
+            <p className="mt-5 text-xs uppercase tracking-[0.25em] text-gold/80">
+              {products.length} {products.length === 1 ? "Piece" : "Pieces"}
             </p>
           ) : null}
         </div>
@@ -70,6 +81,10 @@ export default async function CategoryPage(props: {
           <ProductGridItems products={products} />
         </Grid>
       )}
+
+      {collection ? (
+        <CollectionFaqs faqs={faqs} title={collection.title} />
+      ) : null}
     </section>
   );
 }
