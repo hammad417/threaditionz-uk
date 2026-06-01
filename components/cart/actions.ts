@@ -9,6 +9,7 @@ import {
   removeFromCart,
   updateCart,
 } from "lib/shopify";
+import { associateCartWithCustomer } from "lib/shopify/customer";
 import type { Product } from "lib/shopify/types";
 import { updateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -133,5 +134,10 @@ export async function getCartRecommendations(
 
 export async function createCartAndSetCookie() {
   let cart = await createCart();
-  (await cookies()).set("cartId", cart.id!);
+  const cookieStore = await cookies();
+  cookieStore.set("cartId", cart.id!);
+  // If the shopper is signed in, tie the new cart to their account so the
+  // resulting order is recorded against it.
+  const token = cookieStore.get("customerAccessToken")?.value;
+  if (token && cart.id) await associateCartWithCustomer(cart.id, token);
 }
