@@ -19,19 +19,26 @@ import MobileMegaMenu from "./mobile-mega-menu";
 
 const CLOSE_DELAY = 200;
 
-function FeaturedTile({ group }: { group: MegaGroup }) {
+function FeaturedTile({
+  group,
+  featuredImages,
+}: {
+  group: MegaGroup;
+  featuredImages: Record<string, string>;
+}) {
   if (!group.featured) return null;
   const { eyebrow, heading, handle, image } = group.featured;
+  const src = image || featuredImages[handle];
   return (
     <Link
       href={collectionHref(handle)}
       className="group/tile flex w-72 flex-none flex-col gap-3"
     >
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md bg-charcoal">
-        {image ? (
+        {src ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={image}
+            src={src}
             alt={heading}
             className="h-full w-full object-cover transition-transform duration-700 group-hover/tile:scale-105"
           />
@@ -48,7 +55,13 @@ function FeaturedTile({ group }: { group: MegaGroup }) {
   );
 }
 
-function PanelBody({ group }: { group: MegaGroup }) {
+function PanelBody({
+  group,
+  featuredImages,
+}: {
+  group: MegaGroup;
+  featuredImages: Record<string, string>;
+}) {
   if (group.layout === "swatches") {
     return (
       <div className="grid grid-cols-2 gap-x-10 gap-y-3">
@@ -106,12 +119,16 @@ function PanelBody({ group }: { group: MegaGroup }) {
           </Link>
         ))}
       </div>
-      <FeaturedTile group={group} />
+      <FeaturedTile group={group} featuredImages={featuredImages} />
     </div>
   );
 }
 
-export default function MegaHeader() {
+export default function MegaHeader({
+  featuredImages = {},
+}: {
+  featuredImages?: Record<string, string>;
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const triggerRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -286,7 +303,7 @@ export default function MegaHeader() {
                     <span className="eyebrow">{group.title}</span>
                     <div className="gold-divider mt-3" />
                   </div>
-                  <PanelBody group={group} />
+                  <PanelBody group={group} featuredImages={featuredImages} />
                 </div>
               </div>
             );
