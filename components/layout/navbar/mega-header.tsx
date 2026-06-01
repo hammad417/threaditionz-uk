@@ -4,7 +4,7 @@ import CartModal from "components/cart/modal";
 import BrandWordmark from "components/brand-wordmark";
 import clsx from "clsx";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import {
   MagnifyingGlassIcon,
   UserIcon,
@@ -233,7 +233,9 @@ export default function MegaHeader({
       <div className="mx-auto flex max-w-(--breakpoint-2xl) items-center justify-between gap-4 px-4 py-4 lg:px-8">
         {/* Mobile: hamburger drawer */}
         <div className="lg:hidden">
-          <MobileMegaMenu />
+          <Suspense fallback={null}>
+            <MobileMegaMenu />
+          </Suspense>
         </div>
 
         {/* Logo */}

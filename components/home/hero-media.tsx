@@ -46,7 +46,7 @@ export default function HeroMedia() {
     >
       {/* Static poster — shown on mobile and when the user prefers reduced motion. */}
       <Image
-        src={CLIPS[0].poster}
+        src={CLIPS[0]!.poster}
         alt=""
         fill
         priority

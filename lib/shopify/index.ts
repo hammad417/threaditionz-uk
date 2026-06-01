@@ -530,17 +530,21 @@ export async function getAllProducts(): Promise<Product[]> {
   const all: Product[] = [];
   let cursor: string | undefined = undefined;
 
-  do {
-    const res: {
-      body: {
-        data: {
-          products: {
-            pageInfo: { hasNextPage: boolean; endCursor: string };
-            edges: { node: ShopifyProduct }[];
-          };
-        };
+  type AllProductsOperation = {
+    data: {
+      products: {
+        pageInfo: { hasNextPage: boolean; endCursor: string };
+        edges: { node: ShopifyProduct }[];
       };
-    } = await shopifyFetch({
+    };
+    variables: { cursor?: string };
+  };
+
+  do {
+    // Explicit annotation (not a generic) avoids a circular-inference error
+    // between `res` and `cursor`; the operation type's `variables` field
+    // satisfies shopifyFetch's variable typing.
+    const res: { body: AllProductsOperation } = await shopifyFetch({
       query: getAllProductsQuery,
       variables: { cursor },
     });
