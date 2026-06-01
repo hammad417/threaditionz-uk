@@ -5,7 +5,9 @@ export default {
     useCache: true,
   },
   images: {
-    formats: ["image/avif", "image/webp"],
+    // Resize via Shopify's CDN (free) instead of Vercel's metered optimizer.
+    loader: "custom",
+    loaderFile: "./lib/shopify-image-loader.ts",
     remotePatterns: [
       {
         protocol: "https",
