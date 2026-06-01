@@ -13,7 +13,20 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   validateEnvironmentVariables();
 
-  const routesMap = [""].map((route) => ({
+  // Home + the static in-repo content routes (Shopify plan blocks creating
+  // these as CMS pages, so they live as code routes and must be listed here).
+  // `wishlist` is intentionally excluded — it's noindex.
+  const staticRoutes = [
+    "",
+    "/size-guide",
+    "/shipping-returns",
+    "/faqs",
+    "/our-story",
+    "/sustainability",
+    "/privacy-policy",
+    "/terms-conditions",
+  ];
+  const routesMap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
   }));
