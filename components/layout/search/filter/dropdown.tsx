@@ -57,7 +57,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
           onClick={() => {
             setOpenSelect(false);
           }}
-          className="absolute z-40 mt-1 w-full border border-gold/20 bg-warm-white px-4 py-3 shadow-lg"
+          className="absolute z-40 mt-1 max-h-[60vh] w-full overflow-y-auto overscroll-contain border border-gold/20 bg-warm-white px-4 py-3 shadow-lg"
         >
           {list.map((item: ListItem, i) => (
             <FilterItem key={i} item={item} />
