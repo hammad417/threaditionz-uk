@@ -17,17 +17,22 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   newParams.delete("q");
 
   return (
-    <li className="mt-2 flex text-black dark:text-white" key={item.title}>
+    <li className="flex" key={item.title}>
       <DynamicTag
         href={createUrl(item.path, newParams)}
         className={clsx(
-          "w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100",
-          {
-            "underline underline-offset-4": active,
-          },
+          "group flex w-full items-center gap-2 py-1.5 text-sm leading-snug transition-colors",
+          active ? "text-gold" : "text-charcoal/70 hover:text-gold",
         )}
       >
-        {item.title}
+        <span
+          aria-hidden
+          className={clsx(
+            "h-px flex-none bg-gold transition-all duration-300",
+            active ? "w-3" : "w-0 group-hover:w-3",
+          )}
+        />
+        <span>{item.title}</span>
       </DynamicTag>
     </li>
   );
@@ -48,18 +53,23 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
   const DynamicTag = active ? "p" : Link;
 
   return (
-    <li
-      className="mt-2 flex text-sm text-black dark:text-white"
-      key={item.title}
-    >
+    <li className="flex" key={item.title}>
       <DynamicTag
         prefetch={!active ? false : undefined}
         href={href}
-        className={clsx("w-full hover:underline hover:underline-offset-4", {
-          "underline underline-offset-4": active,
-        })}
+        className={clsx(
+          "group flex w-full items-center gap-2 py-1.5 text-sm leading-snug transition-colors",
+          active ? "text-gold" : "text-charcoal/70 hover:text-gold",
+        )}
       >
-        {item.title}
+        <span
+          aria-hidden
+          className={clsx(
+            "h-px flex-none bg-gold transition-all duration-300",
+            active ? "w-3" : "w-0 group-hover:w-3",
+          )}
+        />
+        <span>{item.title}</span>
       </DynamicTag>
     </li>
   );

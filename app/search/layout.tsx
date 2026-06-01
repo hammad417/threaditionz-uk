@@ -12,8 +12,8 @@ export default function SearchLayout({
 }) {
   return (
     <>
-      <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pb-4 text-black md:flex-row dark:text-white">
-        <div className="order-first w-full flex-none md:max-w-[125px]">
+      <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pb-4 md:flex-row md:gap-10 md:px-6 md:pt-10 lg:px-8">
+        <div className="order-first w-full flex-none md:w-48 md:self-start lg:sticky lg:top-28">
           <Collections />
         </div>
         <div className="order-last min-h-screen w-full md:order-none">
@@ -21,7 +21,7 @@ export default function SearchLayout({
             <ChildrenWrapper>{children}</ChildrenWrapper>
           </Suspense>
         </div>
-        <div className="order-none flex-none md:order-last md:w-[125px]">
+        <div className="order-none flex-none md:order-last md:w-40 md:self-start lg:sticky lg:top-28">
           <FilterList list={sorting} title="Sort by" />
         </div>
       </div>
