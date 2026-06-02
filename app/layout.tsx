@@ -8,6 +8,7 @@ import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { baseUrl } from "lib/utils";
+import { organizationJsonLd } from "lib/brand";
 
 const { SITE_NAME } = process.env;
 
@@ -53,18 +54,15 @@ export const viewport = {
   themeColor: "#151d32",
 };
 
-// Sitewide structured data: brand identity + site search box (sitelinks searchbox).
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: SITE_NAME,
-  url: baseUrl,
-};
+// Sitewide structured data: brand identity (see lib/brand.ts) + site search box
+// (sitelinks searchbox). WebSite references the Organization via publisher @id so
+// the two nodes form one entity graph for search/answer engines.
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: SITE_NAME,
   url: baseUrl,
+  publisher: { "@id": organizationJsonLd["@id"] },
   potentialAction: {
     "@type": "SearchAction",
     target: `${baseUrl}/search?q={search_term_string}`,
