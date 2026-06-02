@@ -15,6 +15,8 @@ export const getProductQuery = /* GraphQL */ `
           { namespace: "custom", key: "custom_fold_styles" }
           { namespace: "custom", key: "custom_pair_with" }
           { namespace: "custom", key: "faq" }
+          { namespace: "reviews", key: "rating" }
+          { namespace: "reviews", key: "rating_count" }
         ]
       ) {
         key

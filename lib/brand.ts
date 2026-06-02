@@ -30,6 +30,23 @@ export const BRAND = {
   },
 } as const;
 
+// Commerce facts, kept truthful in one place and surfaced in Product structured
+// data (return policy + shipping). Mirror the FAQ / Shipping & Returns pages.
+export const COMMERCE = {
+  currency: "GBP",
+  // Returns: 14 days, unused/original condition, refund or exchange (see /faqs).
+  returnDays: 14,
+  // Shipping: free UK delivery over £50; UK dispatch 1–2 business days, transit 2–4.
+  freeShippingThreshold: 50,
+  shippingHandlingDaysMin: 1,
+  shippingHandlingDaysMax: 2,
+  ukTransitDaysMin: 2,
+  ukTransitDaysMax: 4,
+  // Brand-wide product truths (per-product metafields override where present).
+  defaultMaterial: "100% mulberry silk",
+  defaultCondition: "https://schema.org/NewCondition",
+} as const;
+
 // Non-empty social URLs only — safe to spread straight into JSON-LD `sameAs`.
 export const brandSameAs: string[] = Object.values(BRAND.social).filter(
   (u) => u.length > 0,

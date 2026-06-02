@@ -24,6 +24,7 @@ const helpLinks = [
 
 const companyLinks = [
   { label: "Our Story", href: "/our-story" },
+  { label: "Journal", href: "/journal" },
   { label: "Sustainability", href: "/sustainability" },
   { label: "My Account", href: "/account" },
   { label: "Wishlist", href: "/wishlist" },

@@ -9,7 +9,7 @@ import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
 import { metafieldMap, parseFaq } from "lib/shopify/metafields";
 import type { Image } from "lib/shopify/types";
-import { baseUrl } from "lib/utils";
+import { buildBreadcrumbJsonLd, buildProductJsonLd } from "lib/structured-data";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -61,45 +61,13 @@ export default async function ProductPage(props: {
 
   if (!product) return notFound();
 
-  const productJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.title,
-    description: product.description,
-    image: product.featuredImage.url,
-    sku: product.handle,
-    brand: { "@type": "Brand", name: "Threaditionz" },
-    url: `${baseUrl}/product/${product.handle}`,
-    offers: {
-      "@type": "AggregateOffer",
-      availability: product.availableForSale
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount,
-    },
-  };
+  const productJsonLd = buildProductJsonLd(product);
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Shop",
-        item: `${baseUrl}/search`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: product.title,
-        item: `${baseUrl}/product/${product.handle}`,
-      },
-    ],
-  };
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", path: "" },
+    { name: "Shop", path: "/search" },
+    { name: product.title, path: `/product/${product.handle}` },
+  ]);
 
   const faqs = parseFaq(metafieldMap(product.metafields).faq);
   const faqJsonLd = faqs.length

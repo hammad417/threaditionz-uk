@@ -1,3 +1,4 @@
+import { getAllGuides } from "lib/journal";
 import { getAllProducts, getCollections, getPages } from "lib/shopify";
 import { baseUrl, validateEnvironmentVariables } from "lib/utils";
 import { MetadataRoute } from "next";
@@ -19,6 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/contact",
+    "/journal",
     "/size-guide",
     "/shipping-returns",
     "/faqs",
@@ -33,6 +35,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routesMap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: STATIC_CONTENT_LAST_MODIFIED,
+  }));
+
+  // Journal guides (in-repo editorial content).
+  const guideRoutes = getAllGuides().map((g) => ({
+    url: `${baseUrl}/journal/${g.slug}`,
+    lastModified: g.dateModified,
   }));
 
   const collectionsPromise = getCollections().then((collections) =>
@@ -73,5 +81,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     throw JSON.stringify(error, null, 2);
   }
 
-  return [...routesMap, ...fetchedRoutes];
+  return [...routesMap, ...guideRoutes, ...fetchedRoutes];
 }

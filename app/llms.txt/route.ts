@@ -1,3 +1,4 @@
+import { getAllGuides } from "lib/journal";
 import { getCollections } from "lib/shopify";
 import { baseUrl } from "lib/utils";
 
@@ -34,6 +35,18 @@ export async function GET() {
 
 ## Shop by collection
 ${collectionLines || `- [Pocket Squares](${baseUrl}/search/pocket-squares)\n- [Cravats](${baseUrl}/search/cravats)\n- [Silk Scarves](${baseUrl}/search/silk-scarves)\n- [Gift Sets](${baseUrl}/search/gift-sets)`}
+
+## Guides (Journal)
+${getAllGuides()
+  .map((g) => `- [${g.h1}](${baseUrl}/journal/${g.slug}): ${g.description}`)
+  .join("\n")}
+
+## Buying & service facts
+- Free UK delivery on orders over £50; UK delivery 2–4 business days (dispatch in 1–2).
+- Worldwide shipping, typically 5–14 business days.
+- 14-day returns on unused items in original condition for a refund or exchange.
+- Every order is gift-boxed and ribbon-tied; free hand-written gift message at checkout.
+- Pocket squares ≈ 30 × 30 cm; cravats are a generous self-tie; scarves are long-format.
 
 ## Information
 - [Our Story](${baseUrl}/our-story)

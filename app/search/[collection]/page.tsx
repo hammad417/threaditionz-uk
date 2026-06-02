@@ -7,6 +7,11 @@ import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
 import { getCollectionFaqs } from "lib/collection-faqs";
 import { defaultSort, sorting } from "lib/constants";
+import {
+  buildBreadcrumbJsonLd,
+  buildCollectionJsonLd,
+} from "lib/structured-data";
+import Link from "next/link";
 
 export async function generateMetadata(props: {
   params: Promise<{ collection: string }>;
@@ -52,8 +57,52 @@ export default async function CategoryPage(props: {
     ? getCollectionFaqs(params.collection, collection.title)
     : [];
 
+  const path = `/search/${params.collection}`;
+  const collectionJsonLd = collection
+    ? buildCollectionJsonLd({ collection, products, path })
+    : null;
+  const breadcrumbJsonLd = collection
+    ? buildBreadcrumbJsonLd([
+        { name: "Home", path: "" },
+        { name: "Shop", path: "/search" },
+        { name: collection.title, path },
+      ])
+    : null;
+
   return (
     <section>
+      {collectionJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        />
+      ) : null}
+      {breadcrumbJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbJsonLd),
+          }}
+        />
+      ) : null}
+
+      {collection ? (
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-8 text-xs uppercase tracking-[0.15em] text-muted-foreground"
+        >
+          <Link href="/" className="hover:text-gold">
+            Home
+          </Link>
+          <span className="mx-2 text-gold/50">/</span>
+          <Link href="/search" className="hover:text-gold">
+            Shop
+          </Link>
+          <span className="mx-2 text-gold/50">/</span>
+          <span className="text-charcoal">{collection.title}</span>
+        </nav>
+      ) : null}
+
       {collection ? (
         <div className="mb-12 text-center">
           <span className="eyebrow">The Collection</span>

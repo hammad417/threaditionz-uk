@@ -60,6 +60,7 @@ export const viewport = {
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${baseUrl}/#website`,
   name: SITE_NAME,
   url: baseUrl,
   publisher: { "@id": organizationJsonLd["@id"] },
