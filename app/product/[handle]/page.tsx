@@ -5,6 +5,7 @@ import { ProductDetails } from "components/product/product-details";
 import RecentlyViewed from "components/product/recently-viewed";
 import { Reviews } from "components/product/reviews";
 import StickyBuyBar from "components/product/sticky-buy-bar";
+import { TrackViewContent } from "components/product/track-view-content";
 import { ProductCard } from "components/grid/product-card";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
@@ -116,6 +117,8 @@ export default async function ProductPage(props: {
       />
       <meta property="product:condition" content="new" />
       <meta property="product:brand" content="Threaditionz" />
+
+      <TrackViewContent product={product} />
 
       <div className="mx-auto max-w-(--breakpoint-2xl) px-4 py-10">
         {/* Breadcrumb trail */}

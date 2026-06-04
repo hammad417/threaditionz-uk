@@ -6,6 +6,7 @@ import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import LoadingDots from "components/loading-dots";
 import Price from "components/price";
 import { DEFAULT_OPTION } from "lib/constants";
+import { pixelContentId, trackPixel } from "lib/meta-pixel";
 import { createUrl } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -221,7 +222,20 @@ export default function CartModal() {
                       />
                     </div>
                   </div>
-                  <form action={redirectToCheckout}>
+                  <form
+                    action={redirectToCheckout}
+                    onSubmit={() =>
+                      trackPixel("InitiateCheckout", {
+                        content_type: "product",
+                        content_ids: cart.lines.map((line) =>
+                          pixelContentId(line.merchandise.id),
+                        ),
+                        value: Number(cart.cost.totalAmount.amount),
+                        currency: cart.cost.totalAmount.currencyCode,
+                        num_items: cart.totalQuantity,
+                      })
+                    }
+                  >
                     <CheckoutButton />
                   </form>
                 </div>
