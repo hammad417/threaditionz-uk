@@ -3,6 +3,7 @@ import { Gallery } from "components/product/gallery";
 import { ProductDescription } from "components/product/product-description";
 import { ProductDetails } from "components/product/product-details";
 import RecentlyViewed from "components/product/recently-viewed";
+import { Reviews } from "components/product/reviews";
 import StickyBuyBar from "components/product/sticky-buy-bar";
 import { ProductCard } from "components/grid/product-card";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
@@ -141,7 +142,7 @@ export default async function ProductPage(props: {
               }
             >
               <Gallery
-                images={product.images.slice(0, 5).map((image: Image) => ({
+                images={product.images.slice(0, 8).map((image: Image) => ({
                   src: image.url,
                   altText: image.altText,
                 }))}
@@ -157,6 +158,7 @@ export default async function ProductPage(props: {
           </div>
         </div>
 
+        <Reviews product={product} />
         <RelatedProducts id={product.id} />
         <RecentlyViewed
           current={{

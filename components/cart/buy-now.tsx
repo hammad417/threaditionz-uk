@@ -22,13 +22,15 @@ export function BuyNowButton({
   );
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
+  const rawQty = parseInt(searchParams.get("qty") ?? "1", 10);
+  const quantity = Math.max(1, Number.isNaN(rawQty) ? 1 : rawQty);
 
   if (!availableForSale) return null;
 
   return (
     <form
       action={async () => {
-        await buyNow(selectedVariantId);
+        await buyNow(selectedVariantId, quantity);
       }}
     >
       <button

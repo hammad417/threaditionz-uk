@@ -70,7 +70,12 @@ export function AddToCart({ product }: { product: Product }) {
   );
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
-  const addItemAction = formAction.bind(null, selectedVariantId);
+  const rawQty = parseInt(searchParams.get("qty") ?? "1", 10);
+  const quantity = Math.max(1, Number.isNaN(rawQty) ? 1 : rawQty);
+  const addItemAction = formAction.bind(null, {
+    selectedVariantId,
+    quantity,
+  });
   const finalVariant = variants.find(
     (variant) => variant.id === selectedVariantId,
   )!;
@@ -78,7 +83,8 @@ export function AddToCart({ product }: { product: Product }) {
   return (
     <form
       action={async () => {
-        addCartItem(finalVariant, product);
+        // Reflect the chosen quantity in the optimistic cart immediately.
+        for (let i = 0; i < quantity; i++) addCartItem(finalVariant, product);
         addItemAction();
       }}
     >

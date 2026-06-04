@@ -17,14 +17,18 @@ import { redirect } from "next/navigation";
 
 export async function addItem(
   prevState: any,
-  selectedVariantId: string | undefined,
+  payload: { selectedVariantId: string | undefined; quantity?: number },
 ) {
+  const { selectedVariantId, quantity = 1 } = payload;
+
   if (!selectedVariantId) {
     return "Error adding item to cart";
   }
 
   try {
-    await addToCart([{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    await addToCart([
+      { merchandiseId: selectedVariantId, quantity: Math.max(1, quantity) },
+    ]);
     updateTag(TAGS.cart);
   } catch (e) {
     return "Error adding item to cart";
@@ -105,12 +109,17 @@ export async function redirectToCheckout() {
 
 // Express "Buy Now": add the item, then go straight to Shopify checkout
 // (where Shop Pay / Apple Pay / Google Pay express wallets are offered).
-export async function buyNow(selectedVariantId: string | undefined) {
+export async function buyNow(
+  selectedVariantId: string | undefined,
+  quantity: number = 1,
+) {
   if (!selectedVariantId) {
     return "Error adding item to cart";
   }
   try {
-    await addToCart([{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    await addToCart([
+      { merchandiseId: selectedVariantId, quantity: Math.max(1, quantity) },
+    ]);
     updateTag(TAGS.cart);
   } catch (e) {
     return "Error adding item to cart";

@@ -82,7 +82,7 @@ export function CartRecommendations({
                 <form
                   action={async () => {
                     addCartItem(variant, p);
-                    await addItem(null, variant.id);
+                    await addItem(null, { selectedVariantId: variant.id });
                   }}
                 >
                   <button

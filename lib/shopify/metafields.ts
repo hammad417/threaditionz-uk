@@ -68,6 +68,34 @@ export function parseHandleList(value?: string): string[] {
     .filter(Boolean);
 }
 
+/**
+ * Parse the review-app rating metafields (reviews.rating / reviews.rating_count)
+ * into a { value, count } pair. Returns null until a reviews app populates them —
+ * so a rating is never faked. The `rating` value may be a bare float or a JSON
+ * `{ value, scale_min, scale_max }` object (Shopify Product Reviews format).
+ */
+export function parseReviewRating(
+  map: Record<string, string>,
+): { value: number; count: number } | null {
+  const ratingRaw = map["rating"];
+  const countRaw = map["rating_count"];
+  if (!ratingRaw || !countRaw) return null;
+
+  let value: number;
+  try {
+    const parsed = JSON.parse(ratingRaw);
+    value =
+      parsed && typeof parsed === "object"
+        ? Number(parsed.value)
+        : Number(parsed);
+  } catch {
+    value = Number(ratingRaw);
+  }
+  const count = parseInt(countRaw, 10);
+  if (!value || Number.isNaN(value) || !count || count < 1) return null;
+  return { value, count };
+}
+
 export type FaqItem = { question: string; answer: string };
 
 /**

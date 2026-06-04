@@ -1,5 +1,5 @@
 import { BRAND, COMMERCE, ORG_ID } from "lib/brand";
-import { metafieldMap } from "lib/shopify/metafields";
+import { metafieldMap, parseReviewRating } from "lib/shopify/metafields";
 import type { Collection, Product } from "lib/shopify/types";
 import { baseUrl } from "lib/utils";
 
@@ -51,30 +51,6 @@ function priceValidUntil(): string {
   return `${new Date().getFullYear() + 1}-12-31`;
 }
 
-// aggregateRating from review-app metafields (reviews.rating / reviews.rating_count).
-// Returns null until a reviews app populates them — so no rating is ever faked.
-function parseRating(
-  map: Record<string, string>,
-): { value: number; count: number } | null {
-  const ratingRaw = map["rating"];
-  const countRaw = map["rating_count"];
-  if (!ratingRaw || !countRaw) return null;
-
-  let value: number;
-  try {
-    const parsed = JSON.parse(ratingRaw);
-    value =
-      parsed && typeof parsed === "object"
-        ? Number(parsed.value)
-        : Number(parsed);
-  } catch {
-    value = Number(ratingRaw);
-  }
-  const count = parseInt(countRaw, 10);
-  if (!value || Number.isNaN(value) || !count || count < 1) return null;
-  return { value, count };
-}
-
 // Single colourway, if the product exposes one Colour option with a single value.
 function singleColor(product: Product): string | undefined {
   const opt = product.options?.find((o) => /colou?r/i.test(o.name));
@@ -87,7 +63,7 @@ export function buildProductJsonLd(product: Product) {
   const max = product.priceRange.maxVariantPrice;
   const singlePrice = min.amount === max.amount;
   const color = singleColor(product);
-  const rating = parseRating(map);
+  const rating = parseReviewRating(map);
 
   const offerBase = {
     priceCurrency: min.currencyCode,
