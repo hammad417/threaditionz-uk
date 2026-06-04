@@ -1,4 +1,6 @@
 import Analytics from "components/analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookieConsent from "components/cookie-consent";
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
@@ -93,6 +95,8 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Analytics />
+        <VercelAnalytics />
+        <SpeedInsights />
         <CookieConsent />
         <CartProvider cartPromise={cart}>
           <Navbar />
