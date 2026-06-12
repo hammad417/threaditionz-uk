@@ -19,6 +19,21 @@ export const createUrl = (
   return `${pathname}${queryString}`;
 };
 
+// Meta descriptions over ~160 chars get truncated in SERPs and are less clean
+// for AI snippet extraction. Cut at the last sentence end (or word) that fits.
+export const metaDescription = (text: string, max = 160): string => {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const slice = clean.slice(0, max);
+  const sentenceEnd = Math.max(
+    slice.lastIndexOf(". "),
+    slice.lastIndexOf("! "),
+    slice.lastIndexOf("? "),
+  );
+  if (sentenceEnd > max * 0.5) return slice.slice(0, sentenceEnd + 1);
+  return `${slice.slice(0, slice.lastIndexOf(" "))}…`;
+};
+
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith)
     ? stringToCheck

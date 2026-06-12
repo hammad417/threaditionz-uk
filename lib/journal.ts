@@ -33,7 +33,8 @@ export type Guide = {
   steps?: HowToStep[];
   /** Prose sections (both kinds). */
   sections: GuideSection[];
-  /** Cross-links to shoppable collections. */
+  /** Cross-links to specific products and shoppable collections — guides
+   *  should hard-link the exact pieces they discuss, not just categories. */
   related: { label: string; href: string }[];
 };
 
@@ -90,6 +91,14 @@ const ORDERED_GUIDES: Guide[] = [
       },
     ],
     related: [
+      {
+        label: "The Anchored Navy Pride Cravat",
+        href: "/product/anchored-navy-pride-silk-cravat",
+      },
+      {
+        label: "The Maroon Eclipse Cravat",
+        href: "/product/maroon-eclipse-silk-cravat",
+      },
       { label: "Shop silk cravats", href: "/search/cravats" },
       {
         label: "Wedding silk accessories",
@@ -145,6 +154,14 @@ const ORDERED_GUIDES: Guide[] = [
       },
     ],
     related: [
+      {
+        label: "The Solid Navy Blue Pocket Square",
+        href: "/product/the-solid-navy-blue-silk-pocket-square",
+      },
+      {
+        label: "The Diamond Maze Pocket Square",
+        href: "/product/diamond-maze-silk-pocket-square",
+      },
       { label: "Shop pocket squares", href: "/search/pocket-squares" },
       { label: "Silk gift sets", href: "/search/gift-sets" },
     ],
@@ -188,6 +205,10 @@ const ORDERED_GUIDES: Guide[] = [
       },
     ],
     related: [
+      {
+        label: "The Double Dotted Maroon Cravat",
+        href: "/product/double-dotted-maroon-silk-cravat",
+      },
       { label: "Shop silk cravats", href: "/search/cravats" },
       { label: "Shop pocket squares", href: "/search/pocket-squares" },
       { label: "Shop silk scarves", href: "/search/silk-scarves" },
@@ -233,6 +254,14 @@ const ORDERED_GUIDES: Guide[] = [
       },
     ],
     related: [
+      {
+        label: "The Navy Valour Anchor Cravat",
+        href: "/product/navy-valour-anchor-silk-cravat",
+      },
+      {
+        label: "Maroon White Tartan Gift Set",
+        href: "/product/maroon-white-tartan-silk-scarf-pocket-square-set",
+      },
       {
         label: "Wedding silk accessories",
         href: "/search/wedding-silk-accessories",
@@ -289,6 +318,14 @@ const ORDERED_GUIDES: Guide[] = [
       },
     ],
     related: [
+      {
+        label: "The Maroon Eclipse Cravat",
+        href: "/product/maroon-eclipse-silk-cravat",
+      },
+      {
+        label: "The Solid Navy Blue Pocket Square",
+        href: "/product/the-solid-navy-blue-silk-pocket-square",
+      },
       { label: "Shop silk cravats", href: "/search/cravats" },
       {
         label: "Wedding silk accessories",
@@ -344,6 +381,14 @@ const ORDERED_GUIDES: Guide[] = [
     ],
     related: [
       {
+        label: "The Solid Antique Gold Pocket Square",
+        href: "/product/the-solid-antique-gold-silk-pocket-square",
+      },
+      {
+        label: "Blue with White Polka Cravat",
+        href: "/product/blue-with-white-polka-cravat",
+      },
+      {
         label: "Business & formal silk",
         href: "/search/business-formal-silk-accessories",
       },
@@ -396,6 +441,14 @@ const ORDERED_GUIDES: Guide[] = [
       },
     ],
     related: [
+      {
+        label: "The Solid Navy Blue Pocket Square",
+        href: "/product/the-solid-navy-blue-silk-pocket-square",
+      },
+      {
+        label: "The Gold Vintage Pocket Square",
+        href: "/product/the-gold-vintage-silk-pocket-square",
+      },
       { label: "Shop pocket squares", href: "/search/pocket-squares" },
       { label: "Shop silk cravats", href: "/search/cravats" },
       { label: "Silk gift sets", href: "/search/gift-sets" },
@@ -448,6 +501,14 @@ const ORDERED_GUIDES: Guide[] = [
       },
     ],
     related: [
+      {
+        label: "Navy Valour Anchor Gift Set",
+        href: "/product/navy-valour-anchor-silk-scarf-pocket-square-set",
+      },
+      {
+        label: "The Red Classic Plaid Cravat",
+        href: "/product/the-red-classic-plaid-silk-cravat",
+      },
       {
         label: "Wedding silk accessories",
         href: "/search/wedding-silk-accessories",

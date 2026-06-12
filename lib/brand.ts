@@ -28,6 +28,29 @@ export const BRAND = {
     pinterest: "",
     tiktok: "",
   },
+  // Public postal address, if/when the brand publishes one (E-E-A-T / local
+  // entity signal). All-empty = omitted from JSON-LD entirely.
+  address: {
+    streetAddress: "",
+    addressLocality: "",
+    addressRegion: "",
+    postalCode: "",
+    addressCountry: "GB",
+  },
+} as const;
+
+// Named human author for journal guides and the brand story (E-E-A-T: answer
+// engines weight a named, credentialed person over an anonymous Organization).
+// Leave `name` empty until the founder/maker is ready to be public — guides
+// fall back to Organization authorship rather than inventing a persona.
+export const AUTHOR = {
+  name: "",
+  jobTitle: "Founder",
+  // One-line credential shown in bylines, e.g. "Founder of Threaditionz —
+  // hand-finishing silk accessories in England".
+  credential: "",
+  // Public profile for Person.sameAs (LinkedIn/Instagram). Empty = omit.
+  sameAs: "",
 } as const;
 
 // Commerce facts, kept truthful in one place and surfaced in Product structured
@@ -56,6 +79,18 @@ export const brandSameAs: string[] = Object.values(BRAND.social).filter(
 // Organization entity instead of redeclaring it.
 export const ORG_ID = `${baseUrl}/#organization`;
 
+// Schema author node for editorial content: a named Person when AUTHOR is
+// filled in, otherwise the brand Organization (never an invented persona).
+export const contentAuthorJsonLd = AUTHOR.name
+  ? {
+      "@type": "Person",
+      name: AUTHOR.name,
+      jobTitle: AUTHOR.jobTitle,
+      worksFor: { "@id": ORG_ID },
+      ...(AUTHOR.sameAs ? { sameAs: [AUTHOR.sameAs] } : {}),
+    }
+  : { "@type": "Organization", "@id": ORG_ID, name: BRAND.name };
+
 // Reusable Organization node for the site-wide graph.
 export const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -70,6 +105,16 @@ export const organizationJsonLd = {
   email: BRAND.email,
   areaServed: BRAND.areaServed,
   ...(brandSameAs.length ? { sameAs: brandSameAs } : {}),
+  ...(BRAND.address.addressLocality || BRAND.address.streetAddress
+    ? {
+        address: {
+          "@type": "PostalAddress",
+          ...Object.fromEntries(
+            Object.entries(BRAND.address).filter(([, v]) => v.length > 0),
+          ),
+        },
+      }
+    : {}),
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",

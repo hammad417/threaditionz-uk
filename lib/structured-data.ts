@@ -64,6 +64,9 @@ export function buildProductJsonLd(product: Product) {
   const singlePrice = min.amount === max.amount;
   const color = singleColor(product);
   const rating = parseReviewRating(map);
+  // Real stock code from Shopify where one is set; the handle is only a fallback
+  // (a slug is a weak identifier for product-graph matching in shopping surfaces).
+  const sku = product.variants.find((v) => v.sku)?.sku || product.handle;
 
   const offerBase = {
     priceCurrency: min.currencyCode,
@@ -96,7 +99,7 @@ export function buildProductJsonLd(product: Product) {
     image: product.images?.length
       ? product.images.map((i) => i.url)
       : product.featuredImage?.url,
-    sku: product.handle,
+    sku,
     brand: { "@type": "Brand", name: BRAND.name },
     material: map["custom_material"] || COMMERCE.defaultMaterial,
     category: "Clothing Accessories",
@@ -156,8 +159,20 @@ export function buildCollectionJsonLd({
       itemListElement: products.map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `${baseUrl}/product/${p.handle}`,
-        name: p.title,
+        item: {
+          "@type": "Product",
+          name: p.title,
+          url: `${baseUrl}/product/${p.handle}`,
+          ...(p.featuredImage?.url ? { image: p.featuredImage.url } : {}),
+          offers: {
+            "@type": "Offer",
+            price: p.priceRange.minVariantPrice.amount,
+            priceCurrency: p.priceRange.minVariantPrice.currencyCode,
+            availability: p.availableForSale
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+          },
+        },
       })),
     },
   };

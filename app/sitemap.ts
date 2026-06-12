@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   // Stable date so crawlers don't see every static page "change" on every fetch
   // (which dampens crawl trust). Bump this when the static content is edited.
-  const STATIC_CONTENT_LAST_MODIFIED = "2026-06-02";
+  const STATIC_CONTENT_LAST_MODIFIED = "2026-06-12";
   const routesMap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: STATIC_CONTENT_LAST_MODIFIED,

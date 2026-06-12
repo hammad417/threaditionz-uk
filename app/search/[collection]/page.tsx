@@ -11,6 +11,7 @@ import {
   buildBreadcrumbJsonLd,
   buildCollectionJsonLd,
 } from "lib/structured-data";
+import { metaDescription } from "lib/utils";
 import Link from "next/link";
 
 export async function generateMetadata(props: {
@@ -27,10 +28,11 @@ export async function generateMetadata(props: {
 
   return {
     title: seoTitle ? { absolute: seoTitle } : collection.title,
-    description:
+    description: metaDescription(
       collection.seo?.description ||
-      collection.description ||
-      `${collection.title} — 100% silk men's accessories, hand-finished in England.`,
+        collection.description ||
+        `${collection.title} — 100% silk men's accessories, hand-finished in England.`,
+    ),
     alternates: { canonical: `/search/${params.collection}` },
   };
 }

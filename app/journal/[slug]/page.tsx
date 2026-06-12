@@ -1,5 +1,5 @@
 import Footer from "components/layout/footer";
-import { BRAND, ORG_ID } from "lib/brand";
+import { AUTHOR, BRAND, contentAuthorJsonLd, ORG_ID } from "lib/brand";
 import { getAllGuides, getGuide } from "lib/journal";
 import { buildBreadcrumbJsonLd } from "lib/structured-data";
 import { baseUrl } from "lib/utils";
@@ -39,6 +39,17 @@ export async function generateMetadata(props: {
   };
 }
 
+// Visible freshness label (schema alone isn't enough — engines and readers
+// both look for an on-page date).
+function formatDate(iso: string): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 export default async function GuidePage(props: {
   params: Promise<{ slug: string }>;
 }) {
@@ -55,8 +66,8 @@ export default async function GuidePage(props: {
     { name: guide.h1, path: `/journal/${guide.slug}` },
   ]);
 
-  // HowTo for step guides, Article for editorial — both authored/published by the
-  // brand Organization so the byline ties back to the entity graph.
+  // HowTo for step guides, Article for editorial — authored by the named
+  // founder (Person) when AUTHOR is filled in, else the brand Organization.
   const contentJsonLd =
     guide.kind === "howto" && guide.steps?.length
       ? {
@@ -91,7 +102,7 @@ export default async function GuidePage(props: {
           image,
           datePublished: guide.datePublished,
           dateModified: guide.dateModified,
-          author: { "@type": "Organization", "@id": ORG_ID, name: BRAND.name },
+          author: contentAuthorJsonLd,
           publisher: { "@id": ORG_ID },
           mainEntityOfPage: url,
         };
@@ -132,6 +143,22 @@ export default async function GuidePage(props: {
           <div className="gold-divider gold-divider-center mt-4" />
           <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
             {guide.lede}
+          </p>
+          <p className="mt-5 text-xs tracking-wide text-muted-foreground/80">
+            {AUTHOR.name ? <>By {AUTHOR.name} · </> : null}
+            Published{" "}
+            <time dateTime={guide.datePublished}>
+              {formatDate(guide.datePublished)}
+            </time>
+            {guide.dateModified !== guide.datePublished ? (
+              <>
+                {" "}
+                · Updated{" "}
+                <time dateTime={guide.dateModified}>
+                  {formatDate(guide.dateModified)}
+                </time>
+              </>
+            ) : null}
           </p>
         </header>
 
