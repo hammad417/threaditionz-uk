@@ -18,6 +18,17 @@ export type GuideTable = {
 
 export type GuideFaq = { question: string; answer: string };
 
+/** Short editorial film for the guide — rendered with the hero image as its
+ *  poster and emitted as VideoObject JSON-LD. */
+export type GuideVideo = {
+  /** Public-path mp4, e.g. "/journal/how-to-tie-a-cravat.mp4". */
+  src: string;
+  caption: string;
+  /** ISO-8601 duration, e.g. "PT10S". */
+  duration: string;
+  uploadDate: string;
+};
+
 export type GuideSection = {
   heading: string;
   body: string[];
@@ -39,6 +50,7 @@ export type Guide = {
   /** Public-path hero image (optional). */
   heroImage?: string;
   heroAlt?: string;
+  video?: GuideVideo;
   /** One-paragraph lede shown under the H1. */
   lede: string;
   /** HowTo only. */
@@ -65,6 +77,16 @@ const ORDERED_GUIDES: Guide[] = [
     category: "How-To",
     datePublished: "2026-06-02",
     dateModified: "2026-06-12",
+    heroImage: "/journal/how-to-tie-a-cravat.jpg",
+    heroAlt:
+      "Hands tying a navy patterned silk day cravat at an open white shirt collar",
+    video: {
+      src: "/journal/how-to-tie-a-cravat.mp4",
+      caption:
+        "Tying a silk day cravat — drape, cross, loop, fold and adjust.",
+      duration: "PT10S",
+      uploadDate: "2026-06-12",
+    },
     lede: "The day cravat — worn open-necked or tucked into the collar — is the most elegant way to finish a jacket without a tie. Here's the classic knot, step by step.",
     totalTime: "PT3M",
     tools: ["A silk cravat", "A shirt with an open collar", "A mirror"],
@@ -207,6 +229,16 @@ const ORDERED_GUIDES: Guide[] = [
     category: "How-To",
     datePublished: "2026-06-02",
     dateModified: "2026-06-12",
+    heroImage: "/journal/how-to-fold-a-pocket-square.jpg",
+    heroAlt:
+      "Hands folding an antique gold silk pocket square on a tailor's table beside a navy jacket",
+    video: {
+      src: "/journal/how-to-fold-a-pocket-square.mp4",
+      caption:
+        "The straight fold — flat, in half, in half again, and into the pocket.",
+      duration: "PT10S",
+      uploadDate: "2026-06-12",
+    },
     lede: "A pocket square finishes a jacket the way nothing else can. Start with the straight fold — the cleanest, most versatile look — then branch out.",
     totalTime: "PT2M",
     tools: ["A silk pocket square", "A jacket with a breast pocket"],
@@ -350,6 +382,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Style Guide",
     datePublished: "2026-06-02",
     dateModified: "2026-06-02",
+    heroImage: "/journal/cravat-vs-ascot-vs-tie.jpg",
+    heroAlt:
+      "A silk day cravat, formal ascot and classic necktie laid side by side on dark wood",
+    video: {
+      src: "/journal/cravat-vs-ascot-vs-tie.mp4",
+      caption: "Cravat, ascot and necktie — three silks, side by side.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "The words are often used interchangeably, but cravat, ascot and necktie are distinct pieces with different histories and occasions. Here's how to tell them apart.",
     sections: [
       {
@@ -399,6 +440,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Occasion Guide",
     datePublished: "2026-06-02",
     dateModified: "2026-06-12",
+    heroImage: "/journal/silk-accessories-for-weddings.jpg",
+    heroAlt:
+      "Burgundy silk cravat, ivory pocket square and boutonnière laid out on a wedding morning",
+    video: {
+      src: "/journal/silk-accessories-for-weddings.mp4",
+      caption: "Wedding morning — the groom's silks, laid out and ready.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "The right silk accessory ties a wedding party together. Here's how to choose colours, coordinate the groomsmen and pick pieces worth keeping.",
     sections: [
       {
@@ -455,6 +505,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Occasion Guide",
     datePublished: "2026-06-12",
     dateModified: "2026-06-12",
+    heroImage: "/journal/cravat-or-tie-wedding.jpg",
+    heroAlt:
+      "A maroon silk cravat and a classic necktie side by side on a tailor's table with wedding stationery",
+    video: {
+      src: "/journal/cravat-or-tie-wedding.mp4",
+      caption: "The groom's call — cravat at the mirror, tie on the chair.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "The short answer: a cravat suits a morning suit, a waistcoat-led three-piece or a traditional venue; a tie suits a slim modern lounge suit and a city wedding. Here's how to make the call with confidence — and how to dress the ushers either way.",
     sections: [
       {
@@ -596,6 +655,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Occasion Guide",
     datePublished: "2026-06-12",
     dateModified: "2026-06-12",
+    heroImage: "/journal/royal-ascot-mens-accessories.jpg",
+    heroAlt:
+      "Morning coat with silk tie and gold pocket square, top hat and binoculars at the races",
+    video: {
+      src: "/journal/royal-ascot-mens-accessories.mp4",
+      caption: "Race day — morning dress, silk and a top hat.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "Royal Ascot's dress code is set per enclosure, and the detail trips people up: in the Royal Enclosure a tie is compulsory and cravats are not permitted, while elsewhere the rules relax by degrees. Here's where each silk accessory belongs — always check the official Royal Ascot Style Guide for the season's exact wording.",
     sections: [
       {
@@ -721,6 +789,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Style Guide",
     datePublished: "2026-06-12",
     dateModified: "2026-06-12",
+    heroImage: "/journal/pocket-square-tie-matching.jpg",
+    heroAlt:
+      "Navy suit chest with a burgundy tie and coordinating antique gold pocket square",
+    video: {
+      src: "/journal/pocket-square-tie-matching.mp4",
+      caption: "Echo a colour, change the pattern — coordination in practice.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "No — a pocket square should coordinate with your tie, not match it. An identical fabric in pocket and collar looks bought-as-a-set; an echoed colour in a different pattern looks considered. Here are the rules that make it easy.",
     sections: [
       {
@@ -779,6 +856,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Occasion Guide",
     datePublished: "2026-06-12",
     dateModified: "2026-06-12",
+    heroImage: "/journal/groom-vs-groomsmen-accessories.jpg",
+    heroAlt:
+      "A row of matching blue polka dot cravats with one distinct maroon cravat set apart for the groom",
+    video: {
+      src: "/journal/groom-vs-groomsmen-accessories.mp4",
+      caption: "One palette, one party — and the groom's silk set apart.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "The principle is simple: the groom stands apart, the ushers stand together, and everyone shares one palette. Get those three things right and the party photographs as a group with the groom unmistakably at its centre.",
     sections: [
       {
@@ -842,6 +928,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Buying Guide",
     datePublished: "2026-06-12",
     dateModified: "2026-06-12",
+    heroImage: "/journal/best-pocket-squares-navy-suit.jpg",
+    heroAlt:
+      "Five silk pocket squares in gold, burgundy, ice blue and blush fanned beside a navy suit jacket",
+    video: {
+      src: "/journal/best-pocket-squares-navy-suit.mp4",
+      caption: "Five silks against navy — and the gold square goes in first.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "Navy is the easiest suit to dress with silk: warm golds and burgundies complement it, soft blues tone with it, and almost nothing clashes. Here are the combinations that work hardest — with a specific hand-finished pick for each — chosen from our own 100% mulberry silk collection.",
     sections: [
       {
@@ -977,6 +1072,15 @@ const ORDERED_GUIDES: Guide[] = [
     category: "Buying Guide",
     datePublished: "2026-06-12",
     dateModified: "2026-06-12",
+    heroImage: "/journal/best-cravats-summer-wedding.jpg",
+    heroAlt:
+      "Peach, aqua and blush silk cravats draped over a white chair in an English garden",
+    video: {
+      src: "/journal/best-cravats-summer-wedding.mp4",
+      caption: "Summer silks — peach, aqua and blush in the garden breeze.",
+      duration: "PT5S",
+      uploadDate: "2026-06-12",
+    },
     lede: "A summer wedding cravat should be lighter in colour and softer in pattern than its winter counterpart: peach, aqua, blush and sky tones against light grey, stone or airforce-blue tailoring. Here's how to choose for the groom, the ushers and guests — with specific picks from our hand-finished mulberry silk collection.",
     sections: [
       {

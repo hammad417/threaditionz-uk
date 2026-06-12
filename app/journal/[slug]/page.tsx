@@ -4,6 +4,7 @@ import { getAllGuides, getGuide } from "lib/journal";
 import { buildBreadcrumbJsonLd } from "lib/structured-data";
 import { baseUrl } from "lib/utils";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -107,6 +108,20 @@ export default async function GuidePage(props: {
           mainEntityOfPage: url,
         };
 
+  const videoJsonLd = guide.video
+    ? {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: guide.h1,
+        description: guide.video.caption,
+        thumbnailUrl: guide.heroImage ? [`${baseUrl}${guide.heroImage}`] : [],
+        contentUrl: `${baseUrl}${guide.video.src}`,
+        uploadDate: guide.video.uploadDate,
+        duration: guide.video.duration,
+        publisher: { "@id": ORG_ID },
+      }
+    : null;
+
   const faqJsonLd = guide.faqs?.length
     ? {
         "@context": "https://schema.org",
@@ -133,6 +148,12 @@ export default async function GuidePage(props: {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      ) : null}
+      {videoJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }}
         />
       ) : null}
 
@@ -179,6 +200,36 @@ export default async function GuidePage(props: {
             ) : null}
           </p>
         </header>
+
+        {/* Hero film (poster = hero image) or hero image alone */}
+        {guide.video ? (
+          <figure className="mt-10">
+            <video
+              controls
+              muted
+              playsInline
+              preload="none"
+              poster={guide.heroImage}
+              className="aspect-video w-full object-cover"
+            >
+              <source src={guide.video.src} type="video/mp4" />
+            </video>
+            <figcaption className="mt-2 text-xs tracking-wide text-muted-foreground">
+              {guide.video.caption}
+            </figcaption>
+          </figure>
+        ) : guide.heroImage ? (
+          <div className="mt-10">
+            <Image
+              src={guide.heroImage}
+              alt={guide.heroAlt || guide.h1}
+              width={1600}
+              height={900}
+              priority
+              className="aspect-video w-full object-cover"
+            />
+          </div>
+        ) : null}
 
         {/* Steps (HowTo) */}
         {guide.steps?.length ? (

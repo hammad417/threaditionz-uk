@@ -3,6 +3,7 @@ import { getAllGuides } from "lib/journal";
 import { buildBreadcrumbJsonLd } from "lib/structured-data";
 import { baseUrl } from "lib/utils";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 const title = "The Journal — Silk Style Guides & How-Tos | Threaditionz";
@@ -79,18 +80,29 @@ export default function JournalPage() {
             <Link
               key={g.slug}
               href={`/journal/${g.slug}`}
-              className="group flex flex-col gap-3 border border-gold/15 p-8 transition-colors hover:border-gold/50"
+              className="group flex flex-col border border-gold/15 transition-colors hover:border-gold/50"
             >
-              <span className="eyebrow !text-charcoal/60">{g.category}</span>
-              <h2 className="font-heading text-xl text-foreground group-hover:text-gold lg:text-2xl">
-                {g.h1}
-              </h2>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {g.lede}
-              </p>
-              <span className="mt-1 text-xs uppercase tracking-[0.2em] text-gold">
-                Read guide →
-              </span>
+              {g.heroImage ? (
+                <Image
+                  src={g.heroImage}
+                  alt={g.heroAlt || g.h1}
+                  width={800}
+                  height={450}
+                  className="aspect-video w-full object-cover"
+                />
+              ) : null}
+              <div className="flex flex-col gap-3 p-8">
+                <span className="eyebrow !text-charcoal/60">{g.category}</span>
+                <h2 className="font-heading text-xl text-foreground group-hover:text-gold lg:text-2xl">
+                  {g.h1}
+                </h2>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {g.lede}
+                </p>
+                <span className="mt-1 text-xs uppercase tracking-[0.2em] text-gold">
+                  Read guide →
+                </span>
+              </div>
             </Link>
           ))}
         </div>
