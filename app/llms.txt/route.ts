@@ -55,6 +55,10 @@ ${getAllGuides()
 - [FAQs](${baseUrl}/faqs)
 - [Contact](${baseUrl}/contact)
 - [Sitemap](${baseUrl}/sitemap.xml)
+
+## For AI agents
+- [Agent guide](${baseUrl}/agents.md): how to browse and complete a purchase.
+- [Catalogue feed](${baseUrl}/products.json): every product with price, SKU and availability.
 `;
 
   return new Response(body, {

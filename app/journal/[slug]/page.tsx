@@ -107,6 +107,18 @@ export default async function GuidePage(props: {
           mainEntityOfPage: url,
         };
 
+  const faqJsonLd = guide.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: guide.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: { "@type": "Answer", text: f.answer },
+        })),
+      }
+    : null;
+
   return (
     <>
       <script
@@ -117,6 +129,12 @@ export default async function GuidePage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contentJsonLd) }}
       />
+      {faqJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      ) : null}
 
       <article className="mx-auto max-w-3xl px-6 py-16">
         {/* Breadcrumb */}
@@ -204,9 +222,68 @@ export default async function GuidePage(props: {
                   </p>
                 ))}
               </div>
+              {sec.table ? (
+                <div className="mt-6 overflow-x-auto">
+                  <table className="w-full border-collapse text-left text-sm">
+                    {sec.table.caption ? (
+                      <caption className="mb-2 text-left text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                        {sec.table.caption}
+                      </caption>
+                    ) : null}
+                    <thead>
+                      <tr className="border-b border-gold/30">
+                        {sec.table.headers.map((h) => (
+                          <th
+                            key={h}
+                            scope="col"
+                            className="py-2 pr-4 font-heading text-foreground"
+                          >
+                            {h}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sec.table.rows.map((row, ri) => (
+                        <tr key={ri} className="border-b border-gold/10">
+                          {row.map((cell, ci) => (
+                            <td
+                              key={ci}
+                              className="py-2.5 pr-4 align-top leading-relaxed text-muted-foreground"
+                            >
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
             </section>
           ))}
         </div>
+
+        {/* Embedded FAQs (also emitted as FAQPage JSON-LD above) */}
+        {guide.faqs?.length ? (
+          <div className="mt-14 border-t border-gold/15 pt-10">
+            <h2 className="font-heading text-xl text-foreground lg:text-2xl">
+              Frequently asked questions
+            </h2>
+            <dl className="mt-6 space-y-6">
+              {guide.faqs.map((f) => (
+                <div key={f.question}>
+                  <dt className="font-heading text-base text-foreground">
+                    {f.question}
+                  </dt>
+                  <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    {f.answer}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ) : null}
 
         {/* Shoppable cross-links */}
         {guide.related.length ? (

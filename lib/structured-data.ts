@@ -97,7 +97,13 @@ export function buildProductJsonLd(product: Product) {
     name: product.title,
     description: product.description,
     image: product.images?.length
-      ? product.images.map((i) => i.url)
+      ? product.images.map((i) => ({
+          "@type": "ImageObject",
+          url: i.url,
+          ...(i.altText ? { caption: i.altText } : {}),
+          ...(i.width ? { width: i.width } : {}),
+          ...(i.height ? { height: i.height } : {}),
+        }))
       : product.featuredImage?.url,
     sku,
     brand: { "@type": "Brand", name: BRAND.name },

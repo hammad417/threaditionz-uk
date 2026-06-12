@@ -163,6 +163,7 @@ export default async function ProductPage(props: {
         </div>
 
         <Reviews product={product} />
+        <CompleteTheSet handle={product.handle} />
         <RelatedProducts id={product.id} />
         <RecentlyViewed
           current={{
@@ -178,6 +179,74 @@ export default async function ProductPage(props: {
       <StickyBuyBar product={product} />
       <Footer />
     </>
+  );
+}
+
+// The catalogue is organised in design families sharing a handle prefix
+// (e.g. x-silk-cravat / x-silk-pocket-square / x-silk-scarf / x-…-set), so the
+// same design's other formats are derivable from the current handle.
+const FAMILY_SUFFIXES: Record<string, string[]> = {
+  cravat: ["-silk-cravat", "-cravat"],
+  pocketSquare: ["-silk-pocket-square", "-pocket-square"],
+  scarf: ["-silk-scarf", "-scarf"],
+  set: ["-silk-scarf-pocket-square-set", "-scarf-pocket-square-set"],
+};
+
+function parseFamily(handle: string): { kind: string; base: string } | null {
+  const all = Object.entries(FAMILY_SUFFIXES)
+    .flatMap(([kind, sufs]) => sufs.map((s) => ({ kind, suffix: s })))
+    .sort((a, b) => b.suffix.length - a.suffix.length);
+  for (const { kind, suffix } of all) {
+    if (handle.endsWith(suffix)) {
+      return { kind, base: handle.slice(0, -suffix.length) };
+    }
+  }
+  return null;
+}
+
+async function CompleteTheSet({ handle }: { handle: string }) {
+  const family = parseFamily(handle);
+  if (!family) return null;
+
+  const siblings = (
+    await Promise.all(
+      Object.entries(FAMILY_SUFFIXES)
+        .filter(([kind]) => kind !== family.kind)
+        .map(async ([, suffixes]) => {
+          for (const suffix of suffixes) {
+            const sibling = await getProduct(`${family.base}${suffix}`);
+            if (sibling) return sibling;
+          }
+          return null;
+        }),
+    )
+  ).filter((p) => p !== null);
+
+  if (!siblings.length) return null;
+
+  return (
+    <div className="pt-16">
+      <div className="mb-8">
+        <span className="eyebrow">Complete the Set</span>
+        <p className="mt-2 text-sm text-muted-foreground">
+          The same design, in its other formats.
+        </p>
+        <div className="gold-divider mt-3" />
+      </div>
+      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
+        {siblings.map((product) => (
+          <li
+            key={product.handle}
+            className="w-2/3 flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
+          >
+            <ProductCard
+              product={product}
+              sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
