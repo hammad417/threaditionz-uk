@@ -200,10 +200,10 @@ const ORDERED_GUIDES: Guide[] = [
       "Silk Accessories for Weddings — Groom & Groomsmen Guide | Threaditionz",
     h1: "Silk Accessories for Weddings: A Groom's Guide",
     description:
-      "How to choose and coordinate silk pocket squares, cravats and scarves for the groom and groomsmen — colour, occasion and heritage motifs for a wedding day.",
+      "How to choose and coordinate silk pocket squares, cravats and scarves for the groom and groomsmen — colour, coordination and finishing touches for a wedding day.",
     category: "Occasion Guide",
     datePublished: "2026-06-02",
-    dateModified: "2026-06-02",
+    dateModified: "2026-06-12",
     lede: "The right silk accessory ties a wedding party together. Here's how to choose colours, coordinate the groomsmen and pick pieces worth keeping.",
     sections: [
       {
@@ -221,8 +221,8 @@ const ORDERED_GUIDES: Guide[] = [
       {
         heading: "Choosing colour and motif",
         body: [
-          "Anchor the palette to the season and the bridal party: deep jewel tones for autumn and winter, lighter grounds for spring and summer. A heritage motif — Ajrak block-print, Mughal floral or calligraphy — adds meaning and photographs beautifully up close.",
-          "For Eid and festive weddings, richer grounds and gold-toned detailing feel right for the occasion.",
+          "Anchor the palette to the season and the bridal party: deep jewel tones for autumn and winter, lighter grounds for spring and summer. A distinctive print — a block-print, floral or fine-drawn motif — adds character and photographs beautifully up close.",
+          "For festive and winter weddings, richer grounds and gold-toned detailing feel right for the occasion.",
         ],
       },
       {

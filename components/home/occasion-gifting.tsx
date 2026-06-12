@@ -44,7 +44,7 @@ const SUPPORTING: Occasion[] = [
 // Smaller occasion links for breadth, beneath the marquee cards.
 const MORE = [
   { label: "Gift Sets", href: "/search/gift-sets" },
-  { label: "Festive & Eid", href: "/search/festive-eid-silk-accessories" },
+  { label: "Festive & Celebration", href: "/search/festive-eid-silk-accessories" },
   { label: "The Luxe Collection", href: "/search/luxe-collection" },
 ];
 

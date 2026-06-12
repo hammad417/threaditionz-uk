@@ -116,12 +116,12 @@ export const MEGA_GROUPS: MegaGroup[] = [
       { label: "Geometric", handle: "geometric-silk-accessories" },
       { label: "Damask & Brocade", handle: "damask-brocade-silk-accessories" },
       { label: "Calligraphy & Art", handle: "calligraphy-art-silk-accessories" },
-      { label: "Heritage & Ajrak", handle: "heritage-ajrak-silk-accessories" },
+      { label: "Heritage Prints", handle: "heritage-ajrak-silk-accessories" },
       { label: "Novelty", handle: "novelty-silk-accessories" },
     ],
     featured: {
       eyebrow: "Featured",
-      heading: "Heritage & Ajrak",
+      heading: "Heritage Prints",
       handle: "heritage-ajrak-silk-accessories",
     },
   },
@@ -130,7 +130,7 @@ export const MEGA_GROUPS: MegaGroup[] = [
     layout: "links",
     links: [
       { label: "Weddings", handle: "wedding-silk-accessories" },
-      { label: "Festive & Eid", handle: "festive-eid-silk-accessories" },
+      { label: "Festive & Celebration", handle: "festive-eid-silk-accessories" },
       { label: "Business & Formal", handle: "business-formal-silk-accessories" },
       { label: "Casual & Daytime", handle: "casual-daytime-silk-accessories" },
       { label: "Luxe Collection", handle: "luxe-collection" },

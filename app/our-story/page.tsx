@@ -7,7 +7,7 @@ import Link from "next/link";
 const title =
   "Our Story — Heritage Silk Accessories, Hand-Finished in England";
 const description =
-  "The Threaditionz story: hand-finished 100% mulberry silk pocket squares, cravats and scarves that carry Ajrak, Mughal and calligraphy heritage motifs into modern menswear.";
+  "The Threaditionz story: hand-finished 100% mulberry silk pocket squares, cravats and scarves — archival prints, hand-rolled edges and English finishing for modern menswear.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Threaditionz story",
     "heritage silk accessories",
     "hand-finished pocket squares",
-    "Ajrak silk",
+    "English silk accessories",
     "luxury menswear accessories UK",
     "British silk brand",
   ],
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 const chapters = [
   {
     heading: "Heritage, woven in",
-    body: "Our designs draw on a rich visual heritage — Ajrak block-prints, Mughal motifs, calligraphy and the poetry of Ghalib — reimagined for the modern gentleman. Each print is chosen to carry meaning, not just colour, and is reproduced faithfully onto real silk.",
+    body: "Our designs draw on a rich visual heritage — archival block-prints, intricate florals and fine-drawn motifs — reimagined for the modern gentleman. Each print is chosen to carry meaning, not just colour, and is reproduced faithfully onto real silk.",
   },
   {
     heading: "Made by hand",
@@ -47,7 +47,7 @@ const chapters = [
   },
   {
     heading: "For the discerning gentleman",
-    body: "From everyday refinement to weddings, Eid and occasions worth remembering, Threaditionz is made to be worn, gifted and kept. Heritage craftsmanship, made to be remembered.",
+    body: "From everyday refinement to weddings, celebrations and occasions worth remembering, Threaditionz is made to be worn, gifted and kept. Heritage craftsmanship, made to be remembered.",
   },
 ];
 

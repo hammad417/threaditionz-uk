@@ -24,7 +24,7 @@ const UNIVERSAL: Faq[] = [
   {
     question: "Where are your accessories made?",
     answer:
-      "Designed and hand-finished in England from pure mulberry silk. Heritage motifs such as Ajrak and calligraphy are drawn from authentic patterns and printed onto real silk — never artificially generated.",
+      "Designed and hand-finished in England from pure mulberry silk. Every motif is drawn from authentic archival patterns and printed onto real silk — never artificially generated.",
   },
 ];
 

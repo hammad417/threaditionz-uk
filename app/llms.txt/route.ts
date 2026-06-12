@@ -25,12 +25,12 @@ export async function GET() {
 
   const body = `# Threaditionz
 
-> Threaditionz is a British men's accessories brand specialising in hand-finished, 100% silk pocket squares, ascot cravats, scarves and gift sets. Designs reinterpret heritage motifs — Ajrak block-print, Mughal, calligraphy and the poetry of Ghalib — for the modern gentleman. Hand-finished in England.
+> Threaditionz is a British men's accessories brand specialising in hand-finished, 100% silk pocket squares, ascot cravats, scarves and gift sets. Designs reinterpret archival heritage prints — block-prints, florals and fine-drawn motifs — for the modern gentleman. Hand-finished in England.
 
 ## About
 - Material: 100% mulberry silk, hand-rolled edges, hand-finished.
 - Product types: pocket squares, cravats / ascots, silk scarves, scarf-and-pocket-square gift sets, and premium "Luxe Collection" / "L'Atelier Reserve" lines.
-- Made for: weddings, Eid and festive occasions, business and formal wear, and everyday refinement.
+- Made for: weddings and festive occasions, business and formal wear, and everyday refinement.
 - Shop: ${baseUrl}
 
 ## Shop by collection
