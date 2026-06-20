@@ -59,7 +59,18 @@ export default async function GuidePage(props: {
   if (!guide) return notFound();
 
   const url = `${baseUrl}/journal/${guide.slug}`;
-  const image = guide.heroImage ? `${baseUrl}${guide.heroImage}` : BRAND.logo;
+  // Hero images are uniformly served at 1600×893 (16:9). Emit a full
+  // ImageObject so engines get caption + dimensions, matching PDP markup;
+  // fall back to the brand logo URL string when a guide has no hero.
+  const image = guide.heroImage
+    ? {
+        "@type": "ImageObject",
+        url: `${baseUrl}${guide.heroImage}`,
+        width: 1600,
+        height: 893,
+        ...(guide.heroAlt ? { caption: guide.heroAlt } : {}),
+      }
+    : BRAND.logo;
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "" },
