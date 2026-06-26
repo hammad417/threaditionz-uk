@@ -8,9 +8,11 @@ import StickyBuyBar from "components/product/sticky-buy-bar";
 import { TrackViewContent } from "components/product/track-view-content";
 import { ProductCard } from "components/grid/product-card";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
-import { getProduct, getProductRecommendations } from "lib/shopify";
+import { FAMILY_SUFFIXES, parseFamily } from "lib/product-family";
+import { rankRelatedProducts } from "lib/related-products";
+import { getAllProducts, getProduct } from "lib/shopify";
 import { metafieldMap, parseFaq } from "lib/shopify/metafields";
-import type { Image } from "lib/shopify/types";
+import type { Image, Product } from "lib/shopify/types";
 import { buildBreadcrumbJsonLd, buildProductJsonLd } from "lib/structured-data";
 import { metaDescription } from "lib/utils";
 import type { Metadata } from "next";
@@ -31,7 +33,9 @@ export async function generateMetadata(props: {
 
   return {
     title: product.seo.title || product.title,
-    description: metaDescription(product.seo.description || product.description),
+    description: metaDescription(
+      product.seo.description || product.description,
+    ),
     alternates: { canonical: `/product/${product.handle}` },
     robots: {
       index: indexable,
@@ -164,7 +168,7 @@ export default async function ProductPage(props: {
 
         <Reviews product={product} />
         <CompleteTheSet handle={product.handle} />
-        <RelatedProducts id={product.id} />
+        <RelatedProducts product={product} />
         <RecentlyViewed
           current={{
             handle: product.handle,
@@ -180,28 +184,6 @@ export default async function ProductPage(props: {
       <Footer />
     </>
   );
-}
-
-// The catalogue is organised in design families sharing a handle prefix
-// (e.g. x-silk-cravat / x-silk-pocket-square / x-silk-scarf / x-…-set), so the
-// same design's other formats are derivable from the current handle.
-const FAMILY_SUFFIXES: Record<string, string[]> = {
-  cravat: ["-silk-cravat", "-cravat"],
-  pocketSquare: ["-silk-pocket-square", "-pocket-square"],
-  scarf: ["-silk-scarf", "-scarf"],
-  set: ["-silk-scarf-pocket-square-set", "-scarf-pocket-square-set"],
-};
-
-function parseFamily(handle: string): { kind: string; base: string } | null {
-  const all = Object.entries(FAMILY_SUFFIXES)
-    .flatMap(([kind, sufs]) => sufs.map((s) => ({ kind, suffix: s })))
-    .sort((a, b) => b.suffix.length - a.suffix.length);
-  for (const { kind, suffix } of all) {
-    if (handle.endsWith(suffix)) {
-      return { kind, base: handle.slice(0, -suffix.length) };
-    }
-  }
-  return null;
 }
 
 async function CompleteTheSet({ handle }: { handle: string }) {
@@ -250,8 +232,9 @@ async function CompleteTheSet({ handle }: { handle: string }) {
   );
 }
 
-async function RelatedProducts({ id }: { id: string }) {
-  const relatedProducts = await getProductRecommendations(id);
+async function RelatedProducts({ product }: { product: Product }) {
+  const catalogue = await getAllProducts();
+  const relatedProducts = rankRelatedProducts(product, catalogue);
 
   if (!relatedProducts.length) return null;
 
