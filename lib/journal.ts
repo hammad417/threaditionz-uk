@@ -82,8 +82,7 @@ const ORDERED_GUIDES: Guide[] = [
       "Hands tying a navy patterned silk day cravat at an open white shirt collar",
     video: {
       src: "/journal/how-to-tie-a-cravat.mp4",
-      caption:
-        "Tying a silk day cravat — drape, cross, loop, fold and adjust.",
+      caption: "Tying a silk day cravat — drape, cross, loop, fold and adjust.",
       duration: "PT10S",
       uploadDate: "2026-06-12",
     },
@@ -647,8 +646,7 @@ const ORDERED_GUIDES: Guide[] = [
   {
     slug: "royal-ascot-mens-accessories",
     kind: "article",
-    title:
-      "Royal Ascot 2026 — Men's Accessories by Enclosure | Threaditionz",
+    title: "Royal Ascot 2026 — Men's Accessories by Enclosure | Threaditionz",
     h1: "Royal Ascot 2026: Men's Accessories by Enclosure",
     description:
       "What men can wear to Royal Ascot 2026, enclosure by enclosure — where a cravat is and isn't permitted, morning dress accessories, and pocket square rules.",
@@ -672,7 +670,8 @@ const ORDERED_GUIDES: Guide[] = [
           "Not in the Royal Enclosure — morning dress there requires a black or grey morning coat, a waistcoat and a tie, and the Style Guide explicitly rules out cravats. In the Queen Anne and Village Enclosures a tie is likewise the stated requirement with a jacket and full-length trousers. The Windsor Enclosure has no formal dress code, so a day cravat with a blazer is at home there — and it's a natural choice for the many race days elsewhere in the calendar that ask for 'smart' rather than morning dress.",
         ],
         table: {
-          caption: "Men's dress code and silk accessories by enclosure (check the official Style Guide each season)",
+          caption:
+            "Men's dress code and silk accessories by enclosure (check the official Style Guide each season)",
           headers: ["Enclosure", "Dress code", "Cravat?", "Pocket square?"],
           rows: [
             [
@@ -781,8 +780,7 @@ const ORDERED_GUIDES: Guide[] = [
   {
     slug: "pocket-square-tie-matching",
     kind: "article",
-    title:
-      "Should Your Pocket Square Match Your Tie? | Threaditionz",
+    title: "Should Your Pocket Square Match Your Tie? | Threaditionz",
     h1: "Should Your Pocket Square Match Your Tie?",
     description:
       "No — coordinate, don't match. The simple rules for pairing a pocket square with a tie or cravat: colour echo, pattern contrast, and when plain white is right.",
@@ -848,8 +846,7 @@ const ORDERED_GUIDES: Guide[] = [
   {
     slug: "groom-vs-groomsmen-accessories",
     kind: "article",
-    title:
-      "Groom vs Ushers — Coordinating Wedding Accessories | Threaditionz",
+    title: "Groom vs Ushers — Coordinating Wedding Accessories | Threaditionz",
     h1: "Groom vs Ushers: Coordinating Wedding Accessories",
     description:
       "Who wears what in a wedding party — how to set the groom apart from the ushers with silk cravats and pocket squares, coordinate with the bridal party, and buy in multiples.",
@@ -920,8 +917,7 @@ const ORDERED_GUIDES: Guide[] = [
   {
     slug: "best-pocket-squares-navy-suit",
     kind: "article",
-    title:
-      "The Best Silk Pocket Squares for a Navy Suit | Threaditionz",
+    title: "The Best Silk Pocket Squares for a Navy Suit | Threaditionz",
     h1: "The Best Silk Pocket Squares for a Navy Suit",
     description:
       "Which pocket square colours work with a navy suit — gold, burgundy, ice blue and more — with specific hand-finished silk picks for business, weddings and summer.",
@@ -946,7 +942,12 @@ const ORDERED_GUIDES: Guide[] = [
         ],
         table: {
           caption: "Navy suit pairings at a glance",
-          headers: ["Square colour", "Effect with navy", "Best for", "Our pick"],
+          headers: [
+            "Square colour",
+            "Effect with navy",
+            "Best for",
+            "Our pick",
+          ],
           rows: [
             [
               "Antique gold",
@@ -1212,4 +1213,67 @@ export function getAllGuides(): Guide[] {
 
 export function getGuide(slug: string): Guide | undefined {
   return ORDERED_GUIDES.find((g) => g.slug === slug);
+}
+
+// "Related reading" topic clusters (audit L3 / Section H). Turns 10 orphaned
+// articles into linked clusters (cravats, pocket squares, weddings) — the
+// article-to-article cross-linking that was entirely absent. Each article links
+// three siblings; lists are curated from the audit Section E table.
+const RELATED_READING: Record<string, string[]> = {
+  "how-to-tie-a-cravat": [
+    "cravat-vs-ascot-vs-tie",
+    "cravat-or-tie-wedding",
+    "best-cravats-summer-wedding",
+  ],
+  "cravat-vs-ascot-vs-tie": [
+    "how-to-tie-a-cravat",
+    "royal-ascot-mens-accessories",
+    "cravat-or-tie-wedding",
+  ],
+  "cravat-or-tie-wedding": [
+    "silk-accessories-for-weddings",
+    "best-cravats-summer-wedding",
+    "groom-vs-groomsmen-accessories",
+  ],
+  "best-cravats-summer-wedding": [
+    "cravat-or-tie-wedding",
+    "silk-accessories-for-weddings",
+    "groom-vs-groomsmen-accessories",
+  ],
+  "royal-ascot-mens-accessories": [
+    "cravat-vs-ascot-vs-tie",
+    "how-to-tie-a-cravat",
+    "best-pocket-squares-navy-suit",
+  ],
+  "how-to-fold-a-pocket-square": [
+    "pocket-square-tie-matching",
+    "best-pocket-squares-navy-suit",
+    "how-to-tie-a-cravat",
+  ],
+  "pocket-square-tie-matching": [
+    "how-to-fold-a-pocket-square",
+    "best-pocket-squares-navy-suit",
+    "how-to-tie-a-cravat",
+  ],
+  "best-pocket-squares-navy-suit": [
+    "how-to-fold-a-pocket-square",
+    "pocket-square-tie-matching",
+    "cravat-or-tie-wedding",
+  ],
+  "silk-accessories-for-weddings": [
+    "cravat-or-tie-wedding",
+    "groom-vs-groomsmen-accessories",
+    "best-cravats-summer-wedding",
+  ],
+  "groom-vs-groomsmen-accessories": [
+    "silk-accessories-for-weddings",
+    "cravat-or-tie-wedding",
+    "best-cravats-summer-wedding",
+  ],
+};
+
+export function getRelatedReading(slug: string): Guide[] {
+  return (RELATED_READING[slug] ?? [])
+    .map((s) => getGuide(s))
+    .filter((g): g is Guide => Boolean(g));
 }

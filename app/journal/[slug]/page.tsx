@@ -1,6 +1,6 @@
 import Footer from "components/layout/footer";
 import { AUTHOR, BRAND, contentAuthorJsonLd, ORG_ID } from "lib/brand";
-import { getAllGuides, getGuide } from "lib/journal";
+import { getAllGuides, getGuide, getRelatedReading } from "lib/journal";
 import { buildBreadcrumbJsonLd } from "lib/structured-data";
 import { baseUrl } from "lib/utils";
 import type { Metadata } from "next";
@@ -59,6 +59,7 @@ export default async function GuidePage(props: {
   if (!guide) return notFound();
 
   const url = `${baseUrl}/journal/${guide.slug}`;
+  const relatedReading = getRelatedReading(guide.slug);
   // Hero images are uniformly served at 1600×893 (16:9). Emit a full
   // ImageObject so engines get caption + dimensions, matching PDP markup;
   // fall back to the brand logo URL string when a guide has no hero.
@@ -344,6 +345,35 @@ export default async function GuidePage(props: {
                 </div>
               ))}
             </dl>
+          </div>
+        ) : null}
+
+        {/* Related reading — article-to-article topic cluster links */}
+        {relatedReading.length ? (
+          <div className="mt-14 border-t border-gold/15 pt-10">
+            <h2 className="font-heading text-xl text-foreground lg:text-2xl">
+              Related reading
+            </h2>
+            <ul className="mt-6 grid gap-6 sm:grid-cols-3">
+              {relatedReading.map((r) => (
+                <li key={r.slug}>
+                  <Link
+                    href={`/journal/${r.slug}`}
+                    className="group flex h-full flex-col border border-gold/15 p-5 transition-colors hover:border-gold/50"
+                  >
+                    <span className="eyebrow !text-charcoal/60">
+                      {r.category}
+                    </span>
+                    <h3 className="mt-2 font-heading text-base text-foreground group-hover:text-gold">
+                      {r.h1}
+                    </h3>
+                    <span className="mt-3 text-xs uppercase tracking-[0.2em] text-gold">
+                      Read guide →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         ) : null}
 
