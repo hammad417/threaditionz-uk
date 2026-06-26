@@ -2,6 +2,7 @@ import Footer from "components/layout/footer";
 import { Gallery } from "components/product/gallery";
 import { ProductDescription } from "components/product/product-description";
 import { ProductDetails } from "components/product/product-details";
+import { FromTheJournal } from "components/product/from-the-journal";
 import RecentlyViewed from "components/product/recently-viewed";
 import { Reviews } from "components/product/reviews";
 import StickyBuyBar from "components/product/sticky-buy-bar";
@@ -169,6 +170,7 @@ export default async function ProductPage(props: {
         <Reviews product={product} />
         <CompleteTheSet handle={product.handle} />
         <RelatedProducts product={product} />
+        <FromTheJournal product={product} />
         <RecentlyViewed
           current={{
             handle: product.handle,
