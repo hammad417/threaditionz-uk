@@ -32,8 +32,18 @@ export async function generateMetadata(props: {
   const { url, width, height, altText: alt } = product.featuredImage || {};
   const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG);
 
+  // Normalise the title so the layout template appends exactly one brand suffix.
+  // Shopify SEO titles on set products ship as "Buy … | Threaditionz", which the
+  // "%s | Threaditionz" template otherwise doubles (and the "Buy " prefix is
+  // inconsistent with standalone products). Strip both so every product type
+  // ends in a single " | Threaditionz".
+  const title = (product.seo.title || product.title)
+    .replace(/^buy\s+/i, "")
+    .replace(/\s*\|\s*Threaditionz\b.*$/i, "")
+    .trim();
+
   return {
-    title: product.seo.title || product.title,
+    title,
     description: metaDescription(
       product.seo.description || product.description,
     ),
