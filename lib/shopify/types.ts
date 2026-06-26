@@ -75,9 +75,18 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, "variants" | "images"> & {
+export type ProductCollectionRef = {
+  handle: string;
+  title: string;
+};
+
+export type Product = Omit<
+  ShopifyProduct,
+  "variants" | "images" | "collections"
+> & {
   variants: ProductVariant[];
   images: Image[];
+  collections: ProductCollectionRef[];
 };
 
 export type ProductOption = {
@@ -130,8 +139,10 @@ export type ShopifyProduct = {
   handle: string;
   availableForSale: boolean;
   title: string;
+  productType: string;
   description: string;
   descriptionHtml: string;
+  collections: Connection<ProductCollectionRef>;
   options: ProductOption[];
   priceRange: {
     maxVariantPrice: Money;

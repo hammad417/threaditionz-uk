@@ -7,8 +7,17 @@ const productFragment = /* GraphQL */ `
     handle
     availableForSale
     title
+    productType
     description
     descriptionHtml
+    collections(first: 25) {
+      edges {
+        node {
+          handle
+          title
+        }
+      }
+    }
     options {
       id
       name
