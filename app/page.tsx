@@ -1,5 +1,6 @@
 import Editorial from "components/home/editorial";
 import { FeaturedCollections } from "components/home/featured-collections";
+import FromTheJournal from "components/home/from-the-journal";
 import Hero from "components/home/hero";
 import OccasionGifting from "components/home/occasion-gifting";
 import { TrendingEdit } from "components/home/trending-edit";
@@ -28,6 +29,8 @@ export default function HomePage() {
       <OccasionGifting />
 
       <TrendingEdit eyebrow="Trending Now" title="The Gift Edit" />
+
+      <FromTheJournal />
 
       <Editorial />
 
