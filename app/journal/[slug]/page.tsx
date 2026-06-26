@@ -1,12 +1,18 @@
 import Footer from "components/layout/footer";
 import { AUTHOR, BRAND, contentAuthorJsonLd, ORG_ID } from "lib/brand";
-import { getAllGuides, getGuide, getRelatedReading } from "lib/journal";
+import {
+  getAllGuides,
+  getGuide,
+  getRelatedReading,
+  type GuideSection,
+} from "lib/journal";
 import { buildBreadcrumbJsonLd } from "lib/structured-data";
 import { baseUrl } from "lib/utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Fragment } from "react";
 
 export function generateStaticParams() {
   return getAllGuides().map((g) => ({ slug: g.slug }));
@@ -60,6 +66,17 @@ export default async function GuidePage(props: {
 
   const url = `${baseUrl}/journal/${guide.slug}`;
   const relatedReading = getRelatedReading(guide.slug);
+  // "Shop this guide" splits the guide's curated cross-links into the specific
+  // products it discusses and the collections to browse (audit L4).
+  const shopProducts = guide.related.filter((r) =>
+    r.href.startsWith("/product/"),
+  );
+  const shopCollections = guide.related.filter((r) =>
+    r.href.startsWith("/search/"),
+  );
+  // How-tos get the shop module after the steps; articles after the first
+  // section — so it always lands mid-article, then repeats at the end.
+  const midAfterSteps = Boolean(guide.steps?.length);
   // Hero images are uniformly served at 1600×893 (16:9). Emit a full
   // ImageObject so engines get caption + dimensions, matching PDP markup;
   // fall back to the brand logo URL string when a guide has no hero.
@@ -268,62 +285,26 @@ export default async function GuidePage(props: {
           </ol>
         ) : null}
 
-        {/* Prose sections */}
+        {/* Mid-article "Shop this guide" — after the steps on how-tos. */}
+        {midAfterSteps ? (
+          <ShopThisGuide
+            products={shopProducts}
+            collections={shopCollections}
+          />
+        ) : null}
+
+        {/* Prose sections (the shop module lands after section one on articles) */}
         <div className="mt-14 space-y-10">
-          {guide.sections.map((sec) => (
-            <section key={sec.heading}>
-              <h2 className="font-heading text-xl text-foreground lg:text-2xl">
-                {sec.heading}
-              </h2>
-              <div className="mt-3 space-y-4">
-                {sec.body.map((p, i) => (
-                  <p
-                    key={i}
-                    className="text-sm leading-relaxed text-muted-foreground"
-                  >
-                    {p}
-                  </p>
-                ))}
-              </div>
-              {sec.table ? (
-                <div className="mt-6 overflow-x-auto">
-                  <table className="w-full border-collapse text-left text-sm">
-                    {sec.table.caption ? (
-                      <caption className="mb-2 text-left text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                        {sec.table.caption}
-                      </caption>
-                    ) : null}
-                    <thead>
-                      <tr className="border-b border-gold/30">
-                        {sec.table.headers.map((h) => (
-                          <th
-                            key={h}
-                            scope="col"
-                            className="py-2 pr-4 font-heading text-foreground"
-                          >
-                            {h}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {sec.table.rows.map((row, ri) => (
-                        <tr key={ri} className="border-b border-gold/10">
-                          {row.map((cell, ci) => (
-                            <td
-                              key={ci}
-                              className="py-2.5 pr-4 align-top leading-relaxed text-muted-foreground"
-                            >
-                              {cell}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+          {guide.sections.map((sec, idx) => (
+            <Fragment key={sec.heading}>
+              <GuideSectionBlock sec={sec} />
+              {!midAfterSteps && idx === 0 ? (
+                <ShopThisGuide
+                  products={shopProducts}
+                  collections={shopCollections}
+                />
               ) : null}
-            </section>
+            </Fragment>
           ))}
         </div>
 
@@ -377,25 +358,125 @@ export default async function GuidePage(props: {
           </div>
         ) : null}
 
-        {/* Shoppable cross-links */}
-        {guide.related.length ? (
-          <div className="mt-16 border-t border-gold/15 pt-12 text-center">
-            <h2 className="eyebrow !text-charcoal/70">Shop the look</h2>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              {guide.related.map((r) => (
-                <Link
-                  key={r.href}
-                  href={r.href}
-                  className="inline-flex items-center justify-center border border-gold/40 px-6 py-3 text-xs uppercase tracking-[0.2em] text-charcoal transition-colors hover:border-gold hover:bg-gold hover:text-white"
-                >
-                  {r.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        ) : null}
+        {/* End-of-article "Shop this guide" */}
+        <ShopThisGuide
+          products={shopProducts}
+          collections={shopCollections}
+          centered
+        />
       </article>
       <Footer />
     </>
+  );
+}
+
+// A single prose section (heading, paragraphs, optional comparison table).
+// Extracted so the mid-article "Shop this guide" module can be interleaved
+// between sections without duplicating the markup.
+function GuideSectionBlock({ sec }: { sec: GuideSection }) {
+  return (
+    <section>
+      <h2 className="font-heading text-xl text-foreground lg:text-2xl">
+        {sec.heading}
+      </h2>
+      <div className="mt-3 space-y-4">
+        {sec.body.map((p, i) => (
+          <p key={i} className="text-sm leading-relaxed text-muted-foreground">
+            {p}
+          </p>
+        ))}
+      </div>
+      {sec.table ? (
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full border-collapse text-left text-sm">
+            {sec.table.caption ? (
+              <caption className="mb-2 text-left text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                {sec.table.caption}
+              </caption>
+            ) : null}
+            <thead>
+              <tr className="border-b border-gold/30">
+                {sec.table.headers.map((h) => (
+                  <th
+                    key={h}
+                    scope="col"
+                    className="py-2 pr-4 font-heading text-foreground"
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {sec.table.rows.map((row, ri) => (
+                <tr key={ri} className="border-b border-gold/10">
+                  {row.map((cell, ci) => (
+                    <td
+                      key={ci}
+                      className="py-2.5 pr-4 align-top leading-relaxed text-muted-foreground"
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
+// "Shop this guide" — splits the guide's curated cross-links into product
+// buttons (outline) and collection CTAs (solid gold). Rendered mid-article and
+// again at the end (audit L4). Real <a href>, server-rendered.
+function ShopThisGuide({
+  products,
+  collections,
+  centered = false,
+}: {
+  products: { label: string; href: string }[];
+  collections: { label: string; href: string }[];
+  centered?: boolean;
+}) {
+  if (!products.length && !collections.length) return null;
+
+  return (
+    <div
+      className={`mt-14 border-t border-gold/15 pt-10${centered ? " text-center" : ""}`}
+    >
+      <h2 className="eyebrow !text-charcoal/70">Shop this guide</h2>
+      {products.length ? (
+        <div
+          className={`mt-6 flex flex-wrap gap-3${centered ? " justify-center" : ""}`}
+        >
+          {products.map((p) => (
+            <Link
+              key={p.href}
+              href={p.href}
+              className="inline-flex items-center justify-center border border-gold/40 px-5 py-2.5 text-xs uppercase tracking-[0.18em] text-charcoal transition-colors hover:border-gold hover:bg-gold hover:text-white"
+            >
+              {p.label}
+            </Link>
+          ))}
+        </div>
+      ) : null}
+      {collections.length ? (
+        <div
+          className={`mt-4 flex flex-wrap gap-3${centered ? " justify-center" : ""}`}
+        >
+          {collections.map((c) => (
+            <Link
+              key={c.href}
+              href={c.href}
+              className="inline-flex items-center justify-center bg-gold px-6 py-3 text-xs uppercase tracking-[0.2em] text-white transition-colors hover:bg-gold-light"
+            >
+              {c.label} →
+            </Link>
+          ))}
+        </div>
+      ) : null}
+    </div>
   );
 }

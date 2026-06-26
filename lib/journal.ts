@@ -210,6 +210,10 @@ const ORDERED_GUIDES: Guide[] = [
         label: "The Maroon Eclipse Cravat",
         href: "/product/maroon-eclipse-silk-cravat",
       },
+      {
+        label: "The Ferozi (Turquoise) Cravat",
+        href: "/product/ferozi-silk-cravat",
+      },
       { label: "Shop silk cravats", href: "/search/cravats" },
       {
         label: "Wedding silk accessories",
@@ -367,6 +371,10 @@ const ORDERED_GUIDES: Guide[] = [
         label: "The Diamond Maze Pocket Square",
         href: "/product/diamond-maze-silk-pocket-square",
       },
+      {
+        label: "The Solid Antique Gold Pocket Square",
+        href: "/product/the-solid-antique-gold-silk-pocket-square",
+      },
       { label: "Shop pocket squares", href: "/search/pocket-squares" },
       { label: "Silk gift sets", href: "/search/gift-sets" },
     ],
@@ -422,6 +430,14 @@ const ORDERED_GUIDES: Guide[] = [
       {
         label: "The Double Dotted Maroon Cravat",
         href: "/product/double-dotted-maroon-silk-cravat",
+      },
+      {
+        label: "The Maroon Eclipse Cravat",
+        href: "/product/maroon-eclipse-silk-cravat",
+      },
+      {
+        label: "The Gold Vintage Cravat",
+        href: "/product/the-gold-vintage-silk-cravat",
       },
       { label: "Shop silk cravats", href: "/search/cravats" },
       { label: "Shop pocket squares", href: "/search/pocket-squares" },
@@ -484,6 +500,10 @@ const ORDERED_GUIDES: Guide[] = [
       {
         label: "Maroon White Tartan Gift Set",
         href: "/product/maroon-white-tartan-silk-scarf-pocket-square-set",
+      },
+      {
+        label: "The Solid Antique Gold Pocket Square",
+        href: "/product/the-solid-antique-gold-silk-pocket-square",
       },
       {
         label: "Wedding silk accessories",
@@ -635,6 +655,10 @@ const ORDERED_GUIDES: Guide[] = [
         label: "The Solid Navy Blue Pocket Square",
         href: "/product/the-solid-navy-blue-silk-pocket-square",
       },
+      {
+        label: "Peach with White Polka Cravat",
+        href: "/product/peach-with-white-polka-silk-cravat",
+      },
       { label: "Shop silk cravats", href: "/search/cravats" },
       {
         label: "Wedding silk accessories",
@@ -770,6 +794,10 @@ const ORDERED_GUIDES: Guide[] = [
         href: "/product/blue-with-white-polka-cravat",
       },
       {
+        label: "The Gold Vintage Pocket Square",
+        href: "/product/the-gold-vintage-silk-pocket-square",
+      },
+      {
         label: "Business & formal silk",
         href: "/search/business-formal-silk-accessories",
       },
@@ -838,6 +866,10 @@ const ORDERED_GUIDES: Guide[] = [
         label: "The Gold Vintage Pocket Square",
         href: "/product/the-gold-vintage-silk-pocket-square",
       },
+      {
+        label: "The Solid Antique Gold Pocket Square",
+        href: "/product/the-solid-antique-gold-silk-pocket-square",
+      },
       { label: "Shop pocket squares", href: "/search/pocket-squares" },
       { label: "Shop silk cravats", href: "/search/cravats" },
       { label: "Silk gift sets", href: "/search/gift-sets" },
@@ -905,6 +937,10 @@ const ORDERED_GUIDES: Guide[] = [
       {
         label: "The Red Classic Plaid Cravat",
         href: "/product/the-red-classic-plaid-silk-cravat",
+      },
+      {
+        label: "The Red Classic Plaid Gift Set",
+        href: "/product/the-red-classic-plaid-silk-scarf-pocket-square-set",
       },
       {
         label: "Wedding silk accessories",
