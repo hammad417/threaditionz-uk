@@ -5,6 +5,10 @@ import { notFound } from "next/navigation";
 import CollectionFaqs from "components/collection/collection-faqs";
 import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
+import {
+  relatedGuidesForCollection,
+  siblingCollectionsForCollection,
+} from "lib/collection-links";
 import { getCollectionFaqs } from "lib/collection-faqs";
 import { defaultSort, sorting } from "lib/constants";
 import {
@@ -57,6 +61,13 @@ export default async function CategoryPage(props: {
 
   const faqs = collection
     ? getCollectionFaqs(params.collection, collection.title)
+    : [];
+
+  const relatedGuides = collection
+    ? relatedGuidesForCollection(params.collection)
+    : [];
+  const siblingCollections = collection
+    ? siblingCollectionsForCollection(params.collection)
     : [];
 
   const path = `/search/${params.collection}`;
@@ -132,6 +143,51 @@ export default async function CategoryPage(props: {
           <ProductGridItems products={products} />
         </Grid>
       )}
+
+      {collection && relatedGuides.length ? (
+        <div className="mt-16 border-t border-gold/15 pt-12">
+          <span className="eyebrow">Related Guides</span>
+          <div className="gold-divider mt-3" />
+          <ul className="mt-6 grid gap-6 sm:grid-cols-3">
+            {relatedGuides.map((g) => (
+              <li key={g.slug}>
+                <Link
+                  href={`/journal/${g.slug}`}
+                  className="group flex h-full flex-col border border-gold/15 p-6 transition-colors hover:border-gold/50"
+                >
+                  <span className="eyebrow !text-charcoal/60">
+                    {g.category}
+                  </span>
+                  <h3 className="mt-2 font-heading text-lg text-foreground group-hover:text-gold">
+                    {g.h1}
+                  </h3>
+                  <span className="mt-3 text-xs uppercase tracking-[0.2em] text-gold">
+                    Read guide →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {collection && siblingCollections.length ? (
+        <div className="mt-14 border-t border-gold/15 pt-12">
+          <span className="eyebrow">You Might Also Like</span>
+          <div className="gold-divider mt-3" />
+          <div className="mt-6 flex flex-wrap gap-3">
+            {siblingCollections.map((c) => (
+              <Link
+                key={c.href}
+                href={c.href}
+                className="inline-flex items-center justify-center border border-gold/40 px-6 py-3 text-xs uppercase tracking-[0.18em] text-charcoal transition-colors hover:border-gold hover:bg-gold hover:text-white"
+              >
+                {c.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       {collection ? (
         <CollectionFaqs faqs={faqs} title={collection.title} />
