@@ -178,7 +178,9 @@ export default function SizeGuidePage() {
                     {r.item}
                   </th>
                   <td className="px-4 py-3 text-gold">{r.cm}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{r.inches}</td>
+                  <td className="px-4 py-3 text-muted-foreground">
+                    {r.inches}
+                  </td>
                   <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">
                     {r.best}
                   </td>
@@ -196,11 +198,21 @@ export default function SizeGuidePage() {
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               At <strong>30 × 30 cm</strong>, our{" "}
-              <Link href="/search/pocket-squares" className="text-gold hover:underline">
+              <Link
+                href="/search/pocket-squares"
+                className="text-gold hover:underline"
+              >
                 silk pocket squares
               </Link>{" "}
               are the classic size for any breast pocket. Choose a presidential
-              fold for formal looks, or a puff fold for relaxed elegance.
+              fold for formal looks, or a puff fold for relaxed elegance — see{" "}
+              <Link
+                href="/journal/how-to-fold-a-pocket-square"
+                className="text-gold hover:underline"
+              >
+                how to fold a pocket square
+              </Link>
+              .
             </p>
           </section>
           <section>
@@ -209,19 +221,32 @@ export default function SizeGuidePage() {
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Our{" "}
-              <Link href="/search/cravats" className="text-gold hover:underline">
+              <Link
+                href="/search/cravats"
+                className="text-gold hover:underline"
+              >
                 silk cravats
               </Link>{" "}
               are generously cut for a comfortable knot at the collar — wear
               with an open-collar shirt under a jacket, in a classic ascot knot
-              or a draped-and-pinned style.
+              or a draped-and-pinned style. New to the knot? Read{" "}
+              <Link
+                href="/journal/how-to-tie-a-cravat"
+                className="text-gold hover:underline"
+              >
+                how to tie a cravat
+              </Link>
+              .
             </p>
           </section>
           <section>
             <h2 className="font-heading text-2xl text-foreground">Scarves</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Long-format{" "}
-              <Link href="/search/silk-scarves" className="text-gold hover:underline">
+              <Link
+                href="/search/silk-scarves"
+                className="text-gold hover:underline"
+              >
                 silk scarves
               </Link>
               , finished with fringing on selected styles — long enough to

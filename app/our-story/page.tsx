@@ -4,8 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const title =
-  "Our Story — Heritage Silk Accessories, Hand-Finished in England";
+const title = "Our Story — Heritage Silk Accessories, Hand-Finished in England";
 const description =
   "The Threaditionz story: hand-finished 100% mulberry silk pocket squares, cravats and scarves — archival prints, hand-rolled edges and English finishing for modern menswear.";
 
@@ -145,7 +144,10 @@ export default function OurStoryPage() {
           </h2>
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
             Explore hand-finished silk{" "}
-            <Link href="/search/pocket-squares" className="text-gold hover:underline">
+            <Link
+              href="/search/pocket-squares"
+              className="text-gold hover:underline"
+            >
               pocket squares
             </Link>
             ,{" "}
@@ -153,10 +155,34 @@ export default function OurStoryPage() {
               cravats
             </Link>{" "}
             and{" "}
-            <Link href="/search/silk-scarves" className="text-gold hover:underline">
+            <Link
+              href="/search/silk-scarves"
+              className="text-gold hover:underline"
+            >
               scarves
             </Link>
             , or discover the rare weaves of the Luxe Collection.
+          </p>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+            New to silk? Learn{" "}
+            <Link
+              href="/journal/how-to-tie-a-cravat"
+              className="text-gold hover:underline"
+            >
+              how to tie a cravat
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/journal/how-to-fold-a-pocket-square"
+              className="text-gold hover:underline"
+            >
+              how to fold a pocket square
+            </Link>{" "}
+            in our{" "}
+            <Link href="/journal" className="text-gold hover:underline">
+              Journal
+            </Link>
+            .
           </p>
           <Link
             href="/search"

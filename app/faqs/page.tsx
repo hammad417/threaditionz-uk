@@ -40,8 +40,9 @@ const GROUPS: Group[] = [
         text: "Every Threaditionz piece is made from 100% mulberry silk and hand-finished with rolled edges for a premium drape and feel.",
         a: (
           <>
-            Every Threaditionz piece is made from <strong>100% mulberry silk</strong>{" "}
-            and hand-finished with rolled edges for a premium drape and feel.
+            Every Threaditionz piece is made from{" "}
+            <strong>100% mulberry silk</strong> and hand-finished with rolled
+            edges for a premium drape and feel.
           </>
         ),
       },
@@ -50,9 +51,9 @@ const GROUPS: Group[] = [
         text: "Dry clean, or gentle cold hand wash where indicated. Don't wring; dry flat away from sunlight and cool-iron on the reverse if needed. See the size guide for full care guidance.",
         a: (
           <>
-            Dry clean, or gentle cold hand wash where indicated. Don't wring; dry
-            flat away from sunlight and cool-iron on the reverse if needed. See
-            our{" "}
+            Dry clean, or gentle cold hand wash where indicated. Don't wring;
+            dry flat away from sunlight and cool-iron on the reverse if needed.
+            See our{" "}
             <Link href="/size-guide" className="text-gold hover:underline">
               size &amp; care guide
             </Link>{" "}
@@ -65,13 +66,20 @@ const GROUPS: Group[] = [
         text: "Pocket squares are approximately 30 × 30 cm, cravats are a generous self-tie, and scarves are long-format. Exact dimensions are on each product page and in our size guide.",
         a: (
           <>
-            Pocket squares are approximately <strong>30 × 30 cm</strong>, cravats
-            are a generous self-tie, and scarves are long-format. Full
+            Pocket squares are approximately <strong>30 × 30 cm</strong>,
+            cravats are a generous self-tie, and scarves are long-format. Full
             measurements are in our{" "}
             <Link href="/size-guide" className="text-gold hover:underline">
               size guide
             </Link>
-            .
+            , and you can learn{" "}
+            <Link
+              href="/journal/how-to-fold-a-pocket-square"
+              className="text-gold hover:underline"
+            >
+              how to fold a pocket square
+            </Link>{" "}
+            in the Journal.
           </>
         ),
       },
@@ -97,9 +105,12 @@ const GROUPS: Group[] = [
         a: (
           <>
             UK orders typically arrive in 2–4 business days and international
-            orders in 5–14 business days. You'll receive tracking when your order
-            ships — see{" "}
-            <Link href="/shipping-returns" className="text-gold hover:underline">
+            orders in 5–14 business days. You'll receive tracking when your
+            order ships — see{" "}
+            <Link
+              href="/shipping-returns"
+              className="text-gold hover:underline"
+            >
               Shipping &amp; Returns
             </Link>{" "}
             for full details.
@@ -122,8 +133,8 @@ const GROUPS: Group[] = [
         text: "We do. International delivery typically takes 5–14 business days. Any customs duties or import taxes are the responsibility of the recipient.",
         a: (
           <>
-            We do. International delivery typically takes 5–14 business days. Any
-            customs duties or import taxes are the responsibility of the
+            We do. International delivery typically takes 5–14 business days.
+            Any customs duties or import taxes are the responsibility of the
             recipient.
           </>
         ),
@@ -138,9 +149,9 @@ const GROUPS: Group[] = [
         text: "You can return unused items in their original condition and packaging within 14 days of delivery for a refund or exchange, in line with your statutory rights.",
         a: (
           <>
-            You can return unused items in their original condition and packaging
-            within <strong>14 days</strong> of delivery for a refund or exchange,
-            in line with your statutory rights.
+            You can return unused items in their original condition and
+            packaging within <strong>14 days</strong> of delivery for a refund
+            or exchange, in line with your statutory rights.
           </>
         ),
       },
@@ -153,8 +164,8 @@ const GROUPS: Group[] = [
               Contact us
             </Link>{" "}
             with your order number and we'll guide you through it. Refunds are
-            issued to the original payment method once we receive and inspect the
-            return.
+            issued to the original payment method once we receive and inspect
+            the return.
           </>
         ),
       },
@@ -168,9 +179,12 @@ const GROUPS: Group[] = [
         text: "Yes — every order arrives gift-boxed and ribbon-tied as standard, and our silk scarf-and-pocket-square gift sets make a considered gift for the discerning gentleman.",
         a: (
           <>
-            Yes — every order arrives gift-boxed and ribbon-tied as standard, and
-            our{" "}
-            <Link href="/search/gift-sets" className="text-gold hover:underline">
+            Yes — every order arrives gift-boxed and ribbon-tied as standard,
+            and our{" "}
+            <Link
+              href="/search/gift-sets"
+              className="text-gold hover:underline"
+            >
               silk gift sets
             </Link>{" "}
             make a considered gift for the discerning gentleman.
@@ -199,8 +213,15 @@ const GROUPS: Group[] = [
             >
               wedding designs
             </Link>{" "}
-            are available in multiples so the groom and groomsmen can coordinate.
-            For larger parties,{" "}
+            are available in multiples so the groom and groomsmen can
+            coordinate. Read our{" "}
+            <Link
+              href="/journal/cravat-or-tie-wedding"
+              className="text-gold hover:underline"
+            >
+              cravat or tie for your wedding
+            </Link>{" "}
+            guide, and for larger parties{" "}
             <Link href="/contact" className="text-gold hover:underline">
               contact us
             </Link>{" "}
@@ -230,7 +251,12 @@ export default function FaqsPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
-      { "@type": "ListItem", position: 2, name: "FAQs", item: `${baseUrl}/faqs` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "FAQs",
+        item: `${baseUrl}/faqs`,
+      },
     ],
   };
 

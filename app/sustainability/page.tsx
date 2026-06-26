@@ -5,8 +5,7 @@ import { baseUrl } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-const title =
-  "Sustainability — Responsible Silk, Made to Last | Threaditionz";
+const title = "Sustainability — Responsible Silk, Made to Last | Threaditionz";
 const description =
   "How Threaditionz approaches responsible craftsmanship: 100% natural silk, hand-finishing in small runs, minimal recyclable packaging, and heirloom design made to be kept.";
 
@@ -133,10 +132,39 @@ export default function SustainabilityPage() {
           ))}
         </div>
 
-        <p className="mt-10 text-sm italic leading-relaxed text-muted-foreground">
+        <p className="mt-10 text-sm leading-relaxed text-muted-foreground">
+          Longevity starts with the piece itself. Explore hand-finished{" "}
+          <Link
+            href="/search/silk-scarves"
+            className="text-gold hover:underline"
+          >
+            silk scarves
+          </Link>{" "}
+          and{" "}
+          <Link href="/search/gift-sets" className="text-gold hover:underline">
+            silk gift sets
+          </Link>{" "}
+          made to be kept, read more about our craft in{" "}
+          <Link href="/our-story" className="text-gold hover:underline">
+            Our Story
+          </Link>
+          , or learn{" "}
+          <Link
+            href="/journal/how-to-tie-a-cravat"
+            className="text-gold hover:underline"
+          >
+            how to tie a cravat
+          </Link>{" "}
+          in the Journal.
+        </p>
+
+        <p className="mt-6 text-sm italic leading-relaxed text-muted-foreground">
           We're always working to do better — if you have questions about our
           practices, please{" "}
-          <Link href="/contact" className="not-italic text-gold hover:underline">
+          <Link
+            href="/contact"
+            className="not-italic text-gold hover:underline"
+          >
             get in touch
           </Link>
           .

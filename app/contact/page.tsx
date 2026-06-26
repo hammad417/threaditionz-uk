@@ -133,6 +133,23 @@ export default function ContactPage() {
             you quickly. For wedding parties, tell us the pieces and quantities
             you&rsquo;d like to coordinate.
           </p>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+            Planning a wedding? Browse{" "}
+            <Link
+              href="/search/wedding-silk-accessories"
+              className="text-gold hover:underline"
+            >
+              wedding silk accessories
+            </Link>{" "}
+            and read our{" "}
+            <Link
+              href="/journal/groom-vs-groomsmen-accessories"
+              className="text-gold hover:underline"
+            >
+              groom &amp; ushers coordination guide
+            </Link>
+            .
+          </p>
           <a
             href={`mailto:${BRAND.email}`}
             className="mt-1 inline-flex items-center justify-center bg-gold px-8 py-4 text-xs uppercase tracking-[0.25em] text-white transition-colors hover:bg-gold-light"
