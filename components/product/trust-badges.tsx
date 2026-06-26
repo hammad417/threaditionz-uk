@@ -29,7 +29,7 @@ const ITEMS = [
   {
     Icon: SparklesIcon,
     title: "100% mulberry silk",
-    detail: "Hand-finished in England",
+    detail: "Hand-rolled edges · made in England",
   },
 ];
 
