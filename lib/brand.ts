@@ -23,8 +23,8 @@ export const BRAND = {
   // footer icons. Fill these in with the actual handles; empty strings are filtered
   // out so we never emit fake/placeholder profiles (which hurt more than they help).
   social: {
-    instagram: "",
-    facebook: "",
+    instagram: "https://www.instagram.com/threaditionzuk/",
+    facebook: "https://www.facebook.com/profile.php?id=61590418178440",
     pinterest: "",
     tiktok: "",
   },
