@@ -2,6 +2,7 @@ import Analytics from "components/analytics";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookieConsent from "components/cookie-consent";
+import PushOwl from "components/pushowl";
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
 import { getCart } from "lib/shopify";
@@ -95,6 +96,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Analytics />
+        <PushOwl />
         <VercelAnalytics />
         <SpeedInsights />
         <CookieConsent />
