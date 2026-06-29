@@ -99,6 +99,7 @@ export type ProductVariant = {
   id: string;
   title: string;
   sku?: string | null;
+  barcode?: string | null;
   availableForSale: boolean;
   quantityAvailable?: number | null;
   selectedOptions: {

@@ -10,10 +10,31 @@ import { Lato, Playfair_Display } from "next/font/google";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import { organizationJsonLd } from "lib/brand";
 
 const { SITE_NAME } = process.env;
+
+// Site-verification tokens for Google Merchant Center / Search Console and Meta
+// domain verification. Set via env (no real tokens committed); each tag is emitted
+// only when its token is present. See launch/feed/SETUP-CHECKLIST.md.
+const GOOGLE_SITE_VERIFICATION =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const FB_DOMAIN_VERIFICATION = process.env.NEXT_PUBLIC_FB_DOMAIN_VERIFICATION;
+
+const verification =
+  GOOGLE_SITE_VERIFICATION || FB_DOMAIN_VERIFICATION
+    ? {
+        ...(GOOGLE_SITE_VERIFICATION
+          ? { google: GOOGLE_SITE_VERIFICATION }
+          : {}),
+        ...(FB_DOMAIN_VERIFICATION
+          ? {
+              other: { "facebook-domain-verification": FB_DOMAIN_VERIFICATION },
+            }
+          : {}),
+      }
+    : undefined;
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -39,7 +60,7 @@ export const metadata = {
   },
   description:
     "Hand-finished 100% silk pocket squares, cravats and scarves, crafted in England for the modern gentleman.",
-  alternates: { canonical: "/" },
+  alternates: seoAlternates("/"),
   robots: {
     follow: true,
     index: true,
@@ -51,6 +72,7 @@ export const metadata = {
     url: "/",
   },
   twitter: { card: "summary_large_image" },
+  ...(verification ? { verification } : {}),
 };
 
 export const viewport = {

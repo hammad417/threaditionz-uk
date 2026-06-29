@@ -50,6 +50,7 @@ const productFragment = /* GraphQL */ `
           id
           title
           sku
+          barcode
           availableForSale
           quantityAvailable
           selectedOptions {

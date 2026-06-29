@@ -7,8 +7,13 @@ import { useEffect, useState } from "react";
 // matching NEXT_PUBLIC_* id is set. Consent is read from localStorage and kept in
 // sync via the "cookie-consent-change" window event dispatched by the banner.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
+
+// One gtag.js include powers BOTH GA4 and Google Ads (Merchant/remarketing +
+// conversions). Load it if either id is set, then config each one present.
+const GTAG_BOOTSTRAP_ID = GA_ID || GOOGLE_ADS_ID;
 
 export default function Analytics() {
   const [granted, setGranted] = useState(false);
@@ -30,14 +35,16 @@ export default function Analytics() {
 
   return (
     <>
-      {GA_ID ? (
+      {GTAG_BOOTSTRAP_ID ? (
         <>
           <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_BOOTSTRAP_ID}`}
             strategy="afterInteractive"
           />
-          <Script id="ga4" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');`}
+          <Script id="gtag-base" strategy="afterInteractive">
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());${
+              GA_ID ? `gtag('config','${GA_ID}');` : ""
+            }${GOOGLE_ADS_ID ? `gtag('config','${GOOGLE_ADS_ID}');` : ""}`}
           </Script>
         </>
       ) : null}

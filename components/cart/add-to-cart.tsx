@@ -3,7 +3,7 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { addItem } from "components/cart/actions";
-import { pixelContentId, trackPixel } from "lib/meta-pixel";
+import { trackAddToCart } from "lib/analytics/ecommerce";
 import { Product, ProductVariant } from "lib/shopify/types";
 import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
@@ -87,14 +87,7 @@ export function AddToCart({ product }: { product: Product }) {
         // Reflect the chosen quantity in the optimistic cart immediately.
         for (let i = 0; i < quantity; i++) addCartItem(finalVariant, product);
         if (finalVariant) {
-          trackPixel("AddToCart", {
-            content_type: "product",
-            content_ids: [pixelContentId(product.id)],
-            content_name: product.title,
-            value: Number(finalVariant.price.amount) * quantity,
-            currency: finalVariant.price.currencyCode,
-            contents: [{ id: pixelContentId(finalVariant.id), quantity }],
-          });
+          trackAddToCart({ product, variant: finalVariant, quantity });
         }
         addItemAction();
       }}

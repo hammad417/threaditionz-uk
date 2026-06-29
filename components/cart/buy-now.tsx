@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { buyNow } from "components/cart/actions";
-import { pixelContentId, trackPixel } from "lib/meta-pixel";
+import { trackBeginCheckoutItem } from "lib/analytics/ecommerce";
 import { Product, ProductVariant } from "lib/shopify/types";
 import { useSearchParams } from "next/navigation";
 
@@ -33,13 +33,10 @@ export function BuyNowButton({
     <form
       action={async () => {
         if (selectedVariant) {
-          trackPixel("InitiateCheckout", {
-            content_type: "product",
-            content_ids: [pixelContentId(product.id)],
-            content_name: product.title,
-            value: Number(selectedVariant.price.amount) * quantity,
-            currency: selectedVariant.price.currencyCode,
-            num_items: quantity,
+          trackBeginCheckoutItem({
+            product,
+            variant: selectedVariant,
+            quantity,
           });
         }
         await buyNow(selectedVariantId, quantity);
