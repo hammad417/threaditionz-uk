@@ -1,5 +1,5 @@
 import Footer from "components/layout/footer";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "luxury menswear accessories UK",
     "British silk brand",
   ],
-  alternates: { canonical: "/our-story" },
+  alternates: seoAlternates("/our-story"),
   openGraph: {
     type: "article",
     title,

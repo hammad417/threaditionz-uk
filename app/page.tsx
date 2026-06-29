@@ -5,6 +5,7 @@ import Hero from "components/home/hero";
 import OccasionGifting from "components/home/occasion-gifting";
 import { TrendingEdit } from "components/home/trending-edit";
 import Footer from "components/layout/footer";
+import { seoAlternates } from "lib/utils";
 
 export const metadata = {
   title: {
@@ -13,7 +14,7 @@ export const metadata = {
   },
   description:
     "Hand-finished 100% silk pocket squares, cravats and scarves, crafted in England for the modern gentleman.",
-  alternates: { canonical: "/" },
+  alternates: seoAlternates("/"),
   openGraph: {
     type: "website",
   },

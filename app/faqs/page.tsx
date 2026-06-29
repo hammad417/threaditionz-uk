@@ -1,5 +1,5 @@
 import Footer from "components/layout/footer";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "gift wrapping",
     "how to care for silk",
   ],
-  alternates: { canonical: "/faqs" },
+  alternates: seoAlternates("/faqs"),
   openGraph: { type: "article", title, description, url: `${baseUrl}/faqs` },
   twitter: { card: "summary_large_image", title, description },
 };

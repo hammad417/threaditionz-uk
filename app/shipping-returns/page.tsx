@@ -1,12 +1,11 @@
 import CollectionFaqs from "components/collection/collection-faqs";
 import Footer from "components/layout/footer";
 import type { Faq } from "lib/collection-faqs";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-const title =
-  "Shipping & Returns — Free UK Delivery Over £50 | Threaditionz";
+const title = "Shipping & Returns — Free UK Delivery Over £50 | Threaditionz";
 const description =
   "Threaditionz shipping and returns: free UK delivery over £50, dispatch within 1–2 business days, worldwide delivery, and easy 14-day returns on silk pocket squares, cravats and scarves.";
 
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
     "14 day returns",
     "how to return an order",
   ],
-  alternates: { canonical: "/shipping-returns" },
+  alternates: seoAlternates("/shipping-returns"),
   openGraph: {
     type: "article",
     title,

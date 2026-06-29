@@ -1,11 +1,12 @@
 import Footer from "components/layout/footer";
 import Prose from "components/prose";
+import { seoAlternates } from "lib/utils";
 
 export const metadata = {
   title: "Privacy Policy",
   description:
     "How Threaditionz collects, uses, shares and protects your personal data when you shop with us.",
-  alternates: { canonical: "/privacy-policy" },
+  alternates: seoAlternates("/privacy-policy"),
 };
 
 // NOTE (for the team): starter template — have it reviewed by legal counsel and

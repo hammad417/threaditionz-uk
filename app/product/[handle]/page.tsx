@@ -15,7 +15,7 @@ import { getAllProducts, getProduct } from "lib/shopify";
 import { metafieldMap, parseFaq } from "lib/shopify/metafields";
 import type { Image, Product } from "lib/shopify/types";
 import { buildBreadcrumbJsonLd, buildProductJsonLd } from "lib/structured-data";
-import { metaDescription } from "lib/utils";
+import { metaDescription, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -47,7 +47,11 @@ export async function generateMetadata(props: {
     description: metaDescription(
       product.seo.description || product.description,
     ),
-    alternates: { canonical: `/product/${product.handle}` },
+    // Self-canonical always; add en-GB/x-default hreflang only when the product is
+    // indexable (noindex out-of-stock items shouldn't sit in an hreflang cluster).
+    alternates: indexable
+      ? seoAlternates(`/product/${product.handle}`)
+      : { canonical: `/product/${product.handle}` },
     robots: {
       index: indexable,
       follow: indexable,

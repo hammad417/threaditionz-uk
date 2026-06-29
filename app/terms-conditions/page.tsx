@@ -1,11 +1,12 @@
 import Footer from "components/layout/footer";
 import Prose from "components/prose";
+import { seoAlternates } from "lib/utils";
 
 export const metadata = {
   title: "Terms & Conditions",
   description:
     "The terms governing your use of threaditionz.co.uk and purchases of Threaditionz silk accessories.",
-  alternates: { canonical: "/terms-conditions" },
+  alternates: seoAlternates("/terms-conditions"),
 };
 
 // NOTE (for the team): starter template — have it reviewed by legal counsel and

@@ -19,6 +19,25 @@ export const createUrl = (
   return `${pathname}${queryString}`;
 };
 
+// Metadata `alternates` for an indexable page: a self-referencing canonical plus
+// en-GB + x-default hreflang. Paths are relative — Next resolves them against
+// `metadataBase` (= NEXT_PUBLIC_SITE_URL, https://threaditionz.co.uk), so every
+// canonical and hreflang URL points at the .co.uk origin and nowhere else.
+//
+// We deliberately emit ONLY en-GB + x-default (both → .co.uk) and do NOT add an
+// hreflang to the separate threaditionz.com store: hreflang must be reciprocal to
+// be honoured, and .com can't be edited from this repo. If .com is later kept as a
+// distinct international market, add reciprocal tags on both sides (see
+// /launch/domain/HANDOFF.md). For noindex pages, use a bare { canonical } instead
+// — noindex URLs shouldn't sit in an hreflang cluster.
+export const seoAlternates = (path: string) => ({
+  canonical: path,
+  languages: {
+    "en-GB": path,
+    "x-default": path,
+  },
+});
+
 // Meta descriptions over ~160 chars get truncated in SERPs and are less clean
 // for AI snippet extraction. Cut at the last sentence end (or word) that fits.
 export const metaDescription = (text: string, max = 160): string => {

@@ -7,7 +7,7 @@ import {
   type GuideSection,
 } from "lib/journal";
 import { buildBreadcrumbJsonLd } from "lib/structured-data";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,7 +28,7 @@ export async function generateMetadata(props: {
   return {
     title: { absolute: guide.title },
     description: guide.description,
-    alternates: { canonical: `/journal/${guide.slug}` },
+    alternates: seoAlternates(`/journal/${guide.slug}`),
     openGraph: {
       type: "article",
       title: guide.title,

@@ -1,7 +1,7 @@
 import CollectionFaqs from "components/collection/collection-faqs";
 import Footer from "components/layout/footer";
 import type { Faq } from "lib/collection-faqs";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "men's silk accessory sizes UK",
     "how to fold a pocket square",
   ],
-  alternates: { canonical: "/size-guide" },
+  alternates: seoAlternates("/size-guide"),
   openGraph: {
     type: "article",
     title,

@@ -1,7 +1,7 @@
 import Footer from "components/layout/footer";
 import { getAllGuides } from "lib/journal";
 import { buildBreadcrumbJsonLd } from "lib/structured-data";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ const description =
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical: "/journal" },
+  alternates: seoAlternates("/journal"),
   openGraph: { type: "website", title, description, url: `${baseUrl}/journal` },
   twitter: { card: "summary_large_image", title, description },
 };

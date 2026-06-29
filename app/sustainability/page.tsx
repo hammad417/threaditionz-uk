@@ -1,7 +1,7 @@
 import CollectionFaqs from "components/collection/collection-faqs";
 import Footer from "components/layout/footer";
 import type { Faq } from "lib/collection-faqs";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "slow fashion accessories UK",
     "recyclable packaging",
   ],
-  alternates: { canonical: "/sustainability" },
+  alternates: seoAlternates("/sustainability"),
   openGraph: {
     type: "article",
     title,

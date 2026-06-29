@@ -1,6 +1,6 @@
 import Footer from "components/layout/footer";
 import { BRAND, ORG_ID } from "lib/brand";
-import { baseUrl } from "lib/utils";
+import { baseUrl, seoAlternates } from "lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "gifting enquiry",
     "returns help",
   ],
-  alternates: { canonical: "/contact" },
+  alternates: seoAlternates("/contact"),
   openGraph: { type: "website", title, description, url: `${baseUrl}/contact` },
   twitter: { card: "summary_large_image", title, description },
 };
