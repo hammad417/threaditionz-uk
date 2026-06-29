@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import BrandWordmark from "components/brand-wordmark";
 import FooterMenu from "components/layout/footer-menu";
+import NewsletterSignup from "components/newsletter-signup";
 import { BRAND } from "lib/brand";
 import { getMenu } from "lib/shopify";
 import { Suspense } from "react";
@@ -132,6 +133,16 @@ export default async function Footer() {
             Hand-finished 100% silk accessories for the modern gentleman.
             Heritage craftsmanship, made to be remembered.
           </p>
+          <div className="max-w-xs">
+            <h3 className="tracked-label mb-3 text-xs text-cream">
+              Join the list
+            </h3>
+            <p className="mb-3 text-sm text-cream/50">
+              New prints, occasion edits and a welcome offer — straight to your
+              inbox.
+            </p>
+            <NewsletterSignup />
+          </div>
           <SocialLinks />
         </div>
 
