@@ -34,3 +34,14 @@ export function trackKlaviyo(
   if (!klaviyo) return;
   klaviyo.push(["track", eventName, properties ?? {}]);
 }
+
+// Open a specific Klaviyo signup form (popup) on demand — e.g. from a footer
+// "Join the list" button. Pushes to the _klOnsite queue, so it's safe to call
+// before the Onsite JS loads (it runs once ready) and a no-op when Klaviyo isn't
+// consented/loaded. `formId` is the form's Klaviyo ID, e.g. "XGKvug".
+export function openKlaviyoForm(formId: string): void {
+  if (typeof window === "undefined" || !formId) return;
+  const w = window as unknown as { _klOnsite?: unknown[] };
+  w._klOnsite = w._klOnsite ?? [];
+  w._klOnsite.push(["openForm", formId]);
+}
