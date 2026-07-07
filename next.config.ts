@@ -1,6 +1,11 @@
 export default {
   experimental: {
-    ppr: true,
+    // ppr (Partial Prerendering) removed 2026-07-07: on the pinned
+    // 15.6 canary it intermittently served raw RSC/flight payloads
+    // ("resumableState"/"nextSegmentId" resume data) instead of HTML on
+    // CDN cache MISS — SEO reliability beats streaming optimisation here.
+    // Do not re-enable without re-running scripts/check-html-integrity.mjs
+    // against production cold cache.
     inlineCss: true,
     useCache: true,
   },

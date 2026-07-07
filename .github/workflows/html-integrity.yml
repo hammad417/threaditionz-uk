@@ -1,0 +1,23 @@
+name: HTML integrity (RSC payload guard)
+
+# Guards against the P0 serving bug found 2026-07-07: cold-cache page
+# responses returning raw RSC/flight payloads instead of HTML. Fetches ten
+# rotating sitemap URLs from production with a bot UA and cache-busting param;
+# fails if any response is not a real HTML document.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  check-html:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check production HTML integrity
+        run: node scripts/check-html-integrity.mjs https://threaditionz.co.uk
