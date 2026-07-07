@@ -113,7 +113,9 @@ export async function TrendingEdit({
                   <Price
                     className="flex-none font-heading text-sm text-gold"
                     amount={product.priceRange.maxVariantPrice.amount}
-                    currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+                    currencyCode={
+                      product.priceRange.maxVariantPrice.currencyCode
+                    }
                     currencyCodeClassName="hidden"
                   />
                 </div>

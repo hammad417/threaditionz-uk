@@ -137,14 +137,9 @@ export function ProductDetails({ product }: { product: Product }) {
         <Section title="Frequently Asked Questions">
           <div className="flex flex-col">
             {faqs.map((faq, i) => (
-              <details
-                key={i}
-                className="group border-b border-gold/20 py-3"
-              >
+              <details key={i} className="group border-b border-gold/20 py-3">
                 <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-medium text-foreground marker:hidden">
-                  <span className="font-heading text-base">
-                    {faq.question}
-                  </span>
+                  <span className="font-heading text-base">{faq.question}</span>
                   <span className="ml-4 text-gold transition-transform group-open:rotate-45">
                     +
                   </span>

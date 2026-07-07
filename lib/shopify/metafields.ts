@@ -119,10 +119,7 @@ export function parseFaq(value?: string): FaqItem[] {
     const items = parsed
       .filter(
         (it): it is FaqItem =>
-          !!it &&
-          typeof it === "object" &&
-          "question" in it &&
-          "answer" in it,
+          !!it && typeof it === "object" && "question" in it && "answer" in it,
       )
       .map((it) => ({
         question: String(it.question),

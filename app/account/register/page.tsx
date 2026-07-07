@@ -6,7 +6,8 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Create Account",
-  description: "Create a Threaditionz account to track orders, save your details and check out faster.",
+  description:
+    "Create a Threaditionz account to track orders, save your details and check out faster.",
   robots: { index: false, follow: true },
 };
 

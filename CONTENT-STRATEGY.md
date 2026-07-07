@@ -18,14 +18,14 @@ Research basis: competitor content audit (12+ brands/publishers), UK search-dema
 
 ### Demand snapshot (Trends GB 5-yr relative scale; "pocket square" = 24)
 
-| Cluster | Signal | Seasonality | Verdict |
-|---|---|---|---|
-| Wedding cravat / cravat vs tie | Peaks 81–100 indexed yearly | Sharp Apr–Jun | Fight — weak incumbents |
-| Pocket square heads/folds | High (24) but contested by US giants | May–Aug +60% | Avoid heads; hit weak sub-questions |
-| Royal Ascot dress code | 20–58× spike, one June week | Mid-June | Annual-refresh play |
-| Silk education/care | Med, evergreen, bedding brands own it | Flat | Take |
-| Men's silk scarf styling | Low-med; #1 is one dated article | Oct–Jan | Beatable |
-| Gifting heads (Christmas etc.) | High, GQ/John Lewis own them | Nov–Dec | Skip heads; long-tail only ("luxury silk gifts for him", "12th anniversary silk") |
+| Cluster                        | Signal                                | Seasonality   | Verdict                                                                           |
+| ------------------------------ | ------------------------------------- | ------------- | --------------------------------------------------------------------------------- |
+| Wedding cravat / cravat vs tie | Peaks 81–100 indexed yearly           | Sharp Apr–Jun | Fight — weak incumbents                                                           |
+| Pocket square heads/folds      | High (24) but contested by US giants  | May–Aug +60%  | Avoid heads; hit weak sub-questions                                               |
+| Royal Ascot dress code         | 20–58× spike, one June week           | Mid-June      | Annual-refresh play                                                               |
+| Silk education/care            | Med, evergreen, bedding brands own it | Flat          | Take                                                                              |
+| Men's silk scarf styling       | Low-med; #1 is one dated article      | Oct–Jan       | Beatable                                                                          |
+| Gifting heads (Christmas etc.) | High, GQ/John Lewis own them          | Nov–Dec       | Skip heads; long-tail only ("luxury silk gifts for him", "12th anniversary silk") |
 
 ---
 
@@ -39,12 +39,14 @@ Research basis: competitor content audit (12+ brands/publishers), UK search-dema
 ## 3. Roadmap
 
 ### P0 — ✅ published 2026-06-12
+
 1. `cravat-or-tie-wedding` — Cravat or Tie for Your Wedding? (peak seasonal demand)
 2. `royal-ascot-mens-accessories` — Royal Ascot 2026 by enclosure (refresh annually each April, update year in title)
 3. `pocket-square-tie-matching` — Should Your Pocket Square Match Your Tie? (weak dated incumbents)
 4. `groom-vs-groomsmen-accessories` — Groom vs Ushers coordination
 
 ### P1 — Jul–Sep 2026 (craft hub + wedding depth)
+
 5. What Is Mulberry Silk? A Menswear Guide (momme, twill vs satin)
 6. How to Care for Silk Accessories: Wash, Iron, Store (link from every PDP)
 7. Hand-Rolled vs Machine-Stitched: Why Edges Matter
@@ -55,6 +57,7 @@ Research basis: competitor content audit (12+ brands/publishers), UK search-dema
 12. Goodwood Revival Style Guide (publish early Sep; event mid-Sep)
 
 ### P2 — Oct 2026–Mar 2027
+
 13. Luxury Silk Gifts for Him (mid-Oct)
 14. Silk: The 12th Anniversary Gift (uncontested long-tail, year-round intent)
 15. Black Tie Accessories: The Rules (Nov)
@@ -86,6 +89,7 @@ Parked (owner call): paisley-origin story — standard menswear textile history,
 10. Schema caveat: Google dropped FAQ rich results (May 2026) and HowTo (2023) — keep JSON-LD for AI-retrieval clarity only; invest in on-page answer text
 
 ### Technical
+
 - Continue `lib/journal.ts` pattern; at ~15 guides split per-category and add `/journal` category filtering
 - Add `author` field + byline rendering (P1)
 - Consider standalone evergreen routes for the top 2–3 how-tos (Cravat Club `/pages/` pattern)

@@ -8,6 +8,7 @@ unchanged.
 ## Files changed / added
 
 ### Design tokens
+
 - `app/globals.css` — **rewritten**. Brand theme via Tailwind v4 `@theme`
   (midnight/charcoal/gold/gold-light/burgundy/cream/warm-white, border,
   muted-foreground, primary=midnight, accent=gold, radius 0.25rem), HSL triplets
@@ -18,6 +19,7 @@ unchanged.
   `<html lang="en-GB">`; brand body classes.
 
 ### Header + mega menu (new)
+
 - `components/layout/navbar/menu-data.ts` — **typed config** for all mega groups
   (Product / Colour / Pattern / Occasion), swatches, featured tiles, simple links.
   **Edit handles here.**
@@ -34,11 +36,13 @@ unchanged.
   (left in place, unused — safe to delete).
 
 ### Footer
+
 - `components/layout/footer.tsx` — midnight footer, brand block + social squares,
   Shop / Help / Company columns, bottom bar. Still renders the Shopify
   `next-js-frontend-footer-menu` if present.
 
 ### Product page
+
 - `lib/shopify/types.ts` — added `Metafield` type + `metafields` on product.
 - `lib/shopify/queries/product.ts` — single-product query now requests
   `metafields(identifiers: [...])` for namespace `custom`
@@ -55,6 +59,7 @@ unchanged.
   keeps **Product** JSON-LD, adds **BreadcrumbList** and **FAQPage** JSON-LD.
 
 ### Collection grid + homepage
+
 - `components/grid/tile.tsx`, `components/label.tsx` — brand card (square,
   object-cover, scale-105 hover zoom duration-700, Playfair title, gold price).
 - `app/search/[collection]/page.tsx` — branded collection header (eyebrow +
@@ -64,6 +69,7 @@ unchanged.
 - `components/home/hero.tsx`, `components/home/editorial.tsx` (new).
 
 ### Resilience (small, pattern-consistent)
+
 - `lib/shopify/index.ts` — added the existing "Shopify not configured" guard to
   `getCollection` and `getProducts` (the only two functions missing it) so the app
   renders cleanly before credentials are set. No behavioural change once configured.
@@ -71,11 +77,12 @@ unchanged.
 ## Live verification (creds connected — store `threaditionz-uk`)
 
 Connected with the real Storefront token and tested end-to-end:
+
 - ✅ Token authenticates; **all 34** mega-menu / footer collection handles
   resolve against the live store (0 missing).
 - ✅ `/search/pocket-squares` renders **64 real products** server-side.
 - ✅ `/product/the-solid-navy-blue-silk-pocket-square` renders live title/price
-  + **FAQ accordion** + **FAQPage / BreadcrumbList / Product** JSON-LD.
+  - **FAQ accordion** + **FAQPage / BreadcrumbList / Product** JSON-LD.
 
 Store setup done / outstanding:
 
@@ -91,12 +98,12 @@ Store setup done / outstanding:
    and resolved:
    - The store's real keys are **not** what the spec implied. The Storefront-enabled
      definitions are: `custom_material, custom_size, custom_dimensions,
-     custom_made_in, custom_care_instructions, for_occasion, faq,
-     **custom_pair_with**, **custom_fold_styles**` (note the doubled prefixes).
+custom_made_in, custom_care_instructions, for_occasion, faq,
+**custom_pair_with**, **custom_fold_styles**` (note the doubled prefixes).
      The product query + `product-details.tsx` now use these exact keys, and a new
      **"Ideal Occasions"** section renders `custom.for_occasion`.
    - `custom_fold_styles` / `custom_pair_with` (both **json**-typed) were empty —
-     the original `push_to_shopify.py` had written those values to the *un-doubled*
+     the original `push_to_shopify.py` had written those values to the _un-doubled_
      keys (`custom.fold_styles` / `custom.pair_with`), which have no
      Storefront-readable definition. I pushed both to the correct doubled json keys
      for **all 181 active products** (`product_import_files/push_fold_pair.py`,
@@ -129,23 +136,24 @@ Store setup done / outstanding:
    (`threaditionz_active_content.json` + push scripts) if you re-import or extend.
    The app reads these exact Storefront-enabled `custom.*` keys:
    `custom_material, custom_size, custom_dimensions, custom_made_in,
-   custom_care_instructions, for_occasion, faq, custom_pair_with (json),
-   custom_fold_styles (json)`. If you add products, populate the same keys (and run
+custom_care_instructions, for_occasion, faq, custom_pair_with (json),
+custom_fold_styles (json)`. If you add products, populate the same keys (and run
    `push_fold_pair.py` for the two json ones).
 
 4. **Footer pages** — create Shopify pages for the Help/Company/legal links, or
    edit the hrefs in `footer.tsx`: `shipping-returns, size-guide, contact, faqs,
-   our-story, sustainability, privacy-policy, terms-conditions`.
+our-story, sustainability, privacy-policy, terms-conditions`.
 
 5. **Account link** — the header "account" icon points to `/account`, which has no
    route in this template. Wire it to Shopify customer accounts (new customer
    accounts URL) or remove the icon in `mega-header.tsx`.
 
-6. *(Optional)* The mega menu is hardcoded (per spec). To drive it from the
+6. _(Optional)_ The mega menu is hardcoded (per spec). To drive it from the
    Shopify "Next.js Frontend Header Menu" instead, replace `menu-data.ts`
    consumption with `getMenu(...)` nested items.
 
 ## Verified
+
 - `pnpm dev` runs (Turbopack, http://localhost:3000).
 - `tsc --noEmit` passes.
 - View-source of `/` is full server-rendered HTML (~120 KB, not an empty root):

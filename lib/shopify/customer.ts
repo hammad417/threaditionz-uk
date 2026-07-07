@@ -4,7 +4,11 @@
 // every repeat purchase — is tied to their account.
 import { shopifyFetch } from "./index";
 
-export type CustomerUserError = { code?: string; field?: string[]; message: string };
+export type CustomerUserError = {
+  code?: string;
+  field?: string[];
+  message: string;
+};
 
 export type CustomerAccessToken = {
   accessToken: string;
@@ -38,8 +42,15 @@ type Result<T> = { data: T; errors: CustomerUserError[] };
 const CUSTOMER_CREATE = /* GraphQL */ `
   mutation customerCreate($input: CustomerCreateInput!) {
     customerCreate(input: $input) {
-      customer { id email }
-      customerUserErrors { code field message }
+      customer {
+        id
+        email
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
     }
   }
 `;
@@ -47,8 +58,15 @@ const CUSTOMER_CREATE = /* GraphQL */ `
 const ACCESS_TOKEN_CREATE = /* GraphQL */ `
   mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
     customerAccessTokenCreate(input: $input) {
-      customerAccessToken { accessToken expiresAt }
-      customerUserErrors { code field message }
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
     }
   }
 `;
@@ -57,7 +75,10 @@ const ACCESS_TOKEN_DELETE = /* GraphQL */ `
   mutation customerAccessTokenDelete($customerAccessToken: String!) {
     customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
       deletedAccessToken
-      userErrors { field message }
+      userErrors {
+        field
+        message
+      }
     }
   }
 `;
@@ -65,7 +86,11 @@ const ACCESS_TOKEN_DELETE = /* GraphQL */ `
 const CUSTOMER_RECOVER = /* GraphQL */ `
   mutation customerRecover($email: String!) {
     customerRecover(email: $email) {
-      customerUserErrors { code field message }
+      customerUserErrors {
+        code
+        field
+        message
+      }
     }
   }
 `;
@@ -79,7 +104,9 @@ const CUSTOMER_QUERY = /* GraphQL */ `
       displayName
       email
       phone
-      defaultAddress { formatted }
+      defaultAddress {
+        formatted
+      }
       orders(first: 25, reverse: true) {
         edges {
           node {
@@ -89,9 +116,17 @@ const CUSTOMER_QUERY = /* GraphQL */ `
             financialStatus
             fulfillmentStatus
             statusUrl
-            currentTotalPrice { amount currencyCode }
+            currentTotalPrice {
+              amount
+              currencyCode
+            }
             lineItems(first: 50) {
-              edges { node { title quantity } }
+              edges {
+                node {
+                  title
+                  quantity
+                }
+              }
             }
           }
         }
@@ -101,10 +136,18 @@ const CUSTOMER_QUERY = /* GraphQL */ `
 `;
 
 const CART_BUYER_IDENTITY_UPDATE = /* GraphQL */ `
-  mutation cartBuyerIdentityUpdate($cartId: ID!, $buyerIdentity: CartBuyerIdentityInput!) {
+  mutation cartBuyerIdentityUpdate(
+    $cartId: ID!
+    $buyerIdentity: CartBuyerIdentityInput!
+  ) {
     cartBuyerIdentityUpdate(cartId: $cartId, buyerIdentity: $buyerIdentity) {
-      cart { id }
-      userErrors { field message }
+      cart {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
     }
   }
 `;
@@ -142,12 +185,18 @@ export async function createCustomerAccessToken(input: {
     variables: { input: typeof input };
   }>({ query: ACCESS_TOKEN_CREATE, variables: { input } });
   const payload = res.body.data.customerAccessTokenCreate;
-  return { data: payload.customerAccessToken, errors: payload.customerUserErrors };
+  return {
+    data: payload.customerAccessToken,
+    errors: payload.customerUserErrors,
+  };
 }
 
 export async function deleteCustomerAccessToken(token: string): Promise<void> {
   try {
-    await shopifyFetch<{ data: unknown; variables: { customerAccessToken: string } }>({
+    await shopifyFetch<{
+      data: unknown;
+      variables: { customerAccessToken: string };
+    }>({
       query: ACCESS_TOKEN_DELETE,
       variables: { customerAccessToken: token },
     });
@@ -177,7 +226,9 @@ export async function getCustomerByToken(
               orders: {
                 edges: {
                   node: Omit<CustomerOrder, "lineItems"> & {
-                    lineItems: { edges: { node: { title: string; quantity: number } }[] };
+                    lineItems: {
+                      edges: { node: { title: string; quantity: number } }[];
+                    };
                   };
                 }[];
               };
@@ -210,7 +261,10 @@ export async function associateCartWithCustomer(
   try {
     await shopifyFetch<{
       data: unknown;
-      variables: { cartId: string; buyerIdentity: { customerAccessToken: string } };
+      variables: {
+        cartId: string;
+        buyerIdentity: { customerAccessToken: string };
+      };
     }>({
       query: CART_BUYER_IDENTITY_UPDATE,
       variables: { cartId, buyerIdentity: { customerAccessToken } },

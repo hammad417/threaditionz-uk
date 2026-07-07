@@ -5,10 +5,7 @@ import BrandWordmark from "components/brand-wordmark";
 import clsx from "clsx";
 import Link from "next/link";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import {
-  MagnifyingGlassIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, UserIcon } from "@heroicons/react/24/outline";
 import {
   MEGA_GROUPS,
   SIMPLE_LINKS,

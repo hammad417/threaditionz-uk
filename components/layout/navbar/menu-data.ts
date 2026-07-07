@@ -49,7 +49,10 @@ export const MEGA_GROUPS: MegaGroup[] = [
       { label: "Silk Cravats", handle: "cravats" },
       { label: "Silk Scarves", handle: "silk-scarves" },
       { label: "Gift Sets", handle: "gift-sets" },
-      { label: "Solid Silk Pocket Squares", handle: "solid-silk-pocket-squares" },
+      {
+        label: "Solid Silk Pocket Squares",
+        handle: "solid-silk-pocket-squares",
+      },
       {
         label: "Four-in-One Pocket Squares",
         handle: "four-in-one-pocket-squares",
@@ -115,7 +118,10 @@ export const MEGA_GROUPS: MegaGroup[] = [
       { label: "Houndstooth", handle: "houndstooth-silk-accessories" },
       { label: "Geometric", handle: "geometric-silk-accessories" },
       { label: "Damask & Brocade", handle: "damask-brocade-silk-accessories" },
-      { label: "Calligraphy & Art", handle: "calligraphy-art-silk-accessories" },
+      {
+        label: "Calligraphy & Art",
+        handle: "calligraphy-art-silk-accessories",
+      },
       { label: "Heritage Prints", handle: "heritage-ajrak-silk-accessories" },
       { label: "Novelty", handle: "novelty-silk-accessories" },
     ],
@@ -130,8 +136,14 @@ export const MEGA_GROUPS: MegaGroup[] = [
     layout: "links",
     links: [
       { label: "Weddings", handle: "wedding-silk-accessories" },
-      { label: "Festive & Celebration", handle: "festive-eid-silk-accessories" },
-      { label: "Business & Formal", handle: "business-formal-silk-accessories" },
+      {
+        label: "Festive & Celebration",
+        handle: "festive-eid-silk-accessories",
+      },
+      {
+        label: "Business & Formal",
+        handle: "business-formal-silk-accessories",
+      },
       { label: "Casual & Daytime", handle: "casual-daytime-silk-accessories" },
       { label: "Luxe Collection", handle: "luxe-collection" },
       { label: "Gifts for Him", handle: "gifts-for-him" },

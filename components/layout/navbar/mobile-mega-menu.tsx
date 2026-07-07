@@ -11,11 +11,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
-import {
-  MEGA_GROUPS,
-  SIMPLE_LINKS,
-  collectionHref,
-} from "./menu-data";
+import { MEGA_GROUPS, SIMPLE_LINKS, collectionHref } from "./menu-data";
 
 export default function MobileMegaMenu() {
   const pathname = usePathname();
@@ -79,10 +75,7 @@ export default function MobileMegaMenu() {
                 {MEGA_GROUPS.map((group) => {
                   const expanded = openGroup === group.title;
                   return (
-                    <div
-                      key={group.title}
-                      className="border-b border-gold/10"
-                    >
+                    <div key={group.title} className="border-b border-gold/10">
                       <button
                         onClick={() =>
                           setOpenGroup(expanded ? null : group.title)

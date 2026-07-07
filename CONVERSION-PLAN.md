@@ -3,14 +3,16 @@
 Prioritised CRO roadmap. ✅ done · 🔧 in-repo (code) · ☁️ Shopify app / external.
 
 ## Shipped in this pass ✅
+
 - **Analytics scaffold** (`components/analytics.tsx`) — GA4 + Meta Pixel + Microsoft
-  Clarity, each loads only when its `NEXT_PUBLIC_*` ID is set. *Add a cookie-consent banner for UK/EU.*
+  Clarity, each loads only when its `NEXT_PUBLIC_*` ID is set. _Add a cookie-consent banner for UK/EU._
 - **Free-shipping progress bar** in the side cart (`NEXT_PUBLIC_FREE_SHIPPING_THRESHOLD`).
 - **"Buy It Now" express** button → straight to Shopify checkout (Shop Pay / Apple Pay / Google Pay wallets).
 - **Sticky mobile add-to-cart bar** on the PDP.
 - **Trust badges** in the buy box (silk / shipping / free returns / secure checkout).
 
 ## Next, by impact
+
 1. 🔴 ☁️ **Reviews app** (Loox / Judge.me) — biggest trust + CTR lever; then 🔧 wire `aggregateRating` into Product schema (star ratings in Google/Shopping).
 2. 🟠 **AOV**: 🔧 cart cross-sell ("add a matching pocket square"), surface **Complete the Look** in the cart; ☁️ **bundle & save** (any 3 pocket squares), **gift wrapping / gift message** at cart.
 3. 🟠 ☁️ **Klaviyo** — email/SMS popup with first-order discount + **abandoned-cart**, browse-abandonment, back-in-stock, post-purchase flows.
@@ -20,5 +22,6 @@ Prioritised CRO roadmap. ✅ done · 🔧 in-repo (code) · ☁️ Shopify app /
 7. 🟢 **Cart polish**: the side cart still uses the default blue/neutral theme — reskin to midnight & gold.
 
 ## Activation (your side)
+
 Set the analytics IDs + `NEXT_PUBLIC_FREE_SHIPPING_THRESHOLD` in Vercel env, and create a
 matching **free-shipping rule in Shopify** so the bar is truthful. Connect a reviews app and Klaviyo.

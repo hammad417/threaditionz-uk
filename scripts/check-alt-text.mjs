@@ -8,7 +8,10 @@
 
 import { readFileSync } from "node:fs";
 
-for (const line of readFileSync(new URL("../.env.local", import.meta.url), "utf8").split("\n")) {
+for (const line of readFileSync(
+  new URL("../.env.local", import.meta.url),
+  "utf8",
+).split("\n")) {
   const m = line.match(/^([A-Z_]+)="?([^"]*)"?$/);
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
 }
@@ -16,20 +19,30 @@ for (const line of readFileSync(new URL("../.env.local", import.meta.url), "utf8
 const domain = process.env.SHOPIFY_STORE_DOMAIN;
 const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 if (!domain || !token) {
-  console.error("Missing SHOPIFY_STORE_DOMAIN / SHOPIFY_STOREFRONT_ACCESS_TOKEN");
+  console.error(
+    "Missing SHOPIFY_STORE_DOMAIN / SHOPIFY_STOREFRONT_ACCESS_TOKEN",
+  );
   process.exit(1);
 }
 
 const QUERY = /* GraphQL */ `
   query products($cursor: String) {
     products(first: 100, after: $cursor) {
-      pageInfo { hasNextPage endCursor }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           handle
           title
           images(first: 20) {
-            edges { node { url altText } }
+            edges {
+              node {
+                url
+                altText
+              }
+            }
           }
         }
       }
@@ -43,14 +56,17 @@ let missing = 0;
 const offenders = [];
 
 do {
-  const res = await fetch(`https://${domain.replace(/^https?:\/\//, "")}/api/2025-01/graphql.json`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Storefront-Access-Token": token,
+  const res = await fetch(
+    `https://${domain.replace(/^https?:\/\//, "")}/api/2025-01/graphql.json`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": token,
+      },
+      body: JSON.stringify({ query: QUERY, variables: { cursor } }),
     },
-    body: JSON.stringify({ query: QUERY, variables: { cursor } }),
-  });
+  );
   const json = await res.json();
   if (json.errors) {
     console.error(JSON.stringify(json.errors, null, 2));
@@ -63,7 +79,9 @@ do {
       const alt = (img.altText || "").trim();
       if (alt.length < 5) {
         missing++;
-        offenders.push(`${p.handle}\t${alt ? `"${alt}"` : "(none)"}\t${img.url.split("/").pop().split("?")[0]}`);
+        offenders.push(
+          `${p.handle}\t${alt ? `"${alt}"` : "(none)"}\t${img.url.split("/").pop().split("?")[0]}`,
+        );
       }
     }
   }
@@ -71,7 +89,9 @@ do {
 } while (cursor);
 
 console.log(`Images checked: ${total}`);
-console.log(`Missing/short alt text: ${missing} (${total ? Math.round((missing / total) * 100) : 0}%)`);
+console.log(
+  `Missing/short alt text: ${missing} (${total ? Math.round((missing / total) * 100) : 0}%)`,
+);
 if (offenders.length) {
   console.log("\nhandle\talt\tfile");
   console.log(offenders.join("\n"));
