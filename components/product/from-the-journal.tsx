@@ -1,4 +1,7 @@
-import { journalLinksForProduct } from "lib/product-journal";
+import {
+  journalLinksForProduct,
+  storyLinkForProduct,
+} from "lib/product-journal";
 import type { Product } from "lib/shopify/types";
 import Link from "next/link";
 
@@ -8,7 +11,8 @@ import Link from "next/link";
 // point (how to tie/fold/style, what to wear for the occasion).
 export function FromTheJournal({ product }: { product: Product }) {
   const guides = journalLinksForProduct(product);
-  if (!guides.length) return null;
+  const story = storyLinkForProduct(product);
+  if (!guides.length && !story) return null;
 
   return (
     <section className="py-16">
@@ -36,6 +40,22 @@ export function FromTheJournal({ product }: { product: Product }) {
             </Link>
           </li>
         ))}
+        {story && (
+          <li key="story">
+            <Link
+              href={story.href}
+              className="group flex h-full flex-col border border-gold/15 p-6 transition-colors hover:border-gold/50"
+            >
+              <span className="eyebrow !text-charcoal/60">Our Story</span>
+              <h3 className="mt-2 font-heading text-lg text-foreground group-hover:text-gold">
+                {story.label}
+              </h3>
+              <span className="mt-3 text-xs uppercase tracking-[0.2em] text-gold">
+                Read the story →
+              </span>
+            </Link>
+          </li>
+        )}
       </ul>
     </section>
   );

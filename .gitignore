@@ -48,3 +48,7 @@ photo-upgrade/refs/
 photo-upgrade/hero/
 photo-upgrade/out/*
 !photo-upgrade/out/manifest.json
+
+# /story generated source media — never commit raws; the optimized
+# webm/webp/jpg files in public/story/ are the shipped outputs.
+public/story/raw/

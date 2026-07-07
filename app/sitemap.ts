@@ -37,6 +37,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: STATIC_CONTENT_LAST_MODIFIED,
   }));
 
+  // /story — cinematic brand-story page (in-repo route, media-heavy, edited
+  // rarely) — listed with explicit changefreq/priority per launch plan.
+  const storyRoute = {
+    url: `${baseUrl}/story`,
+    lastModified: STATIC_CONTENT_LAST_MODIFIED,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  };
+
   // Journal guides (in-repo editorial content).
   const guideRoutes = getAllGuides().map((g) => ({
     url: `${baseUrl}/journal/${g.slug}`,
@@ -81,5 +90,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     throw JSON.stringify(error, null, 2);
   }
 
-  return [...routesMap, ...guideRoutes, ...fetchedRoutes];
+  return [...routesMap, storyRoute, ...guideRoutes, ...fetchedRoutes];
 }

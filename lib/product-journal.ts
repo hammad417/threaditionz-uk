@@ -40,6 +40,29 @@ function inCollection(product: Product, handle: string): boolean {
   return product.collections.some((c) => c.handle === handle);
 }
 
+// /story — the cinematic brand-story page. Surfaces on PDPs whose pattern
+// family the story actually covers (Ajrak block-printing, Mughal patternwork,
+// calligraphy), matched against title, type, tags and collection handles.
+export const storyLink = {
+  href: "/story",
+  label: "The story behind the pattern",
+  matchesPatterns: ["ajrak", "mughal", "calligraphy"],
+};
+
+export function storyLinkForProduct(product: Product) {
+  const haystack = [
+    product.title,
+    product.productType,
+    ...product.tags,
+    ...product.collections.map((c) => c.handle),
+  ]
+    .join(" ")
+    .toLowerCase();
+  return storyLink.matchesPatterns.some((p) => haystack.includes(p))
+    ? storyLink
+    : null;
+}
+
 export function journalLinksForProduct(product: Product, limit = 3): Guide[] {
   const slugs: string[] = [];
   const type = product.productType;
