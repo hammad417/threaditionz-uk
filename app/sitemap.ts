@@ -24,7 +24,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/size-guide",
     "/shipping-returns",
     "/faqs",
-    "/our-story",
     "/sustainability",
     "/privacy-policy",
     "/terms-conditions",
@@ -37,11 +36,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: STATIC_CONTENT_LAST_MODIFIED,
   }));
 
-  // /story — cinematic brand-story page (in-repo route, media-heavy, edited
-  // rarely) — listed with explicit changefreq/priority per launch plan.
+  // /our-story — the cinematic brand-story page (media-heavy, edited rarely) —
+  // listed with explicit changefreq/priority per launch plan. Rebuilt 2026-07-07
+  // when the /story experience merged in, hence its own lastModified.
   const storyRoute = {
-    url: `${baseUrl}/story`,
-    lastModified: STATIC_CONTENT_LAST_MODIFIED,
+    url: `${baseUrl}/our-story`,
+    lastModified: "2026-07-07",
     changeFrequency: "monthly" as const,
     priority: 0.7,
   };

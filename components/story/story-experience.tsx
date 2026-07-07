@@ -14,11 +14,11 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import AjrakMotif from "./ajrak-motif";
-import type { StoryAct } from "lib/story-copy";
+import type { StoryAct, StoryLink } from "lib/story-copy";
 
 interface Props {
   acts: StoryAct[];
-  links: { ajrakCollection: string; patternPillar: string; giftSets: string };
+  links: StoryLink[];
 }
 
 const VIDEOS: Record<string, { src: string; poster: string }> = {
@@ -344,14 +344,12 @@ export default function StoryExperience({ acts, links }: Props) {
           {byId("invitation").heading}
         </h2>
         <BodyCopy act={byId("invitation")} className="mt-5 max-w-md" />
-        <nav className="mt-10 flex flex-wrap justify-center gap-4">
-          <Cta href={links.ajrakCollection}>Shop Ajrak silk</Cta>
-          <Cta href={links.patternPillar} secondary>
-            Read the pattern guide
-          </Cta>
-          <Cta href={links.giftSets} secondary>
-            Explore gift sets
-          </Cta>
+        <nav className="mt-10 flex max-w-2xl flex-wrap justify-center gap-4">
+          {links.map((l) => (
+            <Cta key={l.href} href={l.href} secondary={!l.primary}>
+              {l.label}
+            </Cta>
+          ))}
         </nav>
       </section>
     </div>

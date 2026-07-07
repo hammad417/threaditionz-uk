@@ -44,7 +44,7 @@ function inCollection(product: Product, handle: string): boolean {
 // family the story actually covers (Ajrak block-printing, Mughal patternwork,
 // calligraphy), matched against title, type, tags and collection handles.
 export const storyLink = {
-  href: "/story",
+  href: "/our-story",
   label: "The story behind the pattern",
   matchesPatterns: ["ajrak", "mughal", "calligraphy"],
 };
